@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags | Raheem Chaudhry</title>
-    <link>https://raheem03.github.io/tags/</link>
-      <atom:link href="https://raheem03.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <description>Tags</description>
+    <title>Research | Raheem Chaudhry</title>
+    <link>https://raheem03.github.io/research/</link>
+      <atom:link href="https://raheem03.github.io/research/index.xml" rel="self" type="application/rss+xml" />
+    <description>Research</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
     <image>
       <url>https://raheem03.github.io/img/profile</url>
-      <title>Tags</title>
-      <link>https://raheem03.github.io/tags/</link>
+      <title>Research</title>
+      <link>https://raheem03.github.io/research/</link>
     </image>
     
   </channel>

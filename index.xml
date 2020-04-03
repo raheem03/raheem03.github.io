@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Academic</title>
+    <title>Raheem Chaudhry</title>
     <link>https://raheem03.github.io/</link>
       <atom:link href="https://raheem03.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <description>Academic</description>
+    <description>Raheem Chaudhry</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
     <image>
-      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
-      <title>Academic</title>
+      <url>https://raheem03.github.io/img/profile</url>
+      <title>Raheem Chaudhry</title>
       <link>https://raheem03.github.io/</link>
     </image>
+    
+    <item>
+      <title></title>
+      <link>https://raheem03.github.io/home/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://raheem03.github.io/home/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>
