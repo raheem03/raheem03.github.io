@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects | Raheem Chaudhry</title>
+    <link>https://raheem03.github.io/project/</link>
+      <atom:link href="https://raheem03.github.io/project/index.xml" rel="self" type="application/rss+xml" />
+    <description>Projects</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 05 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://raheem03.github.io/img/profile</url>
+      <title>Projects</title>
+      <link>https://raheem03.github.io/project/</link>
+    </image>
+    
+    <item>
+      <title>Python for Public Policy</title>
+      <link>https://raheem03.github.io/project/p3/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://raheem03.github.io/project/p3/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
