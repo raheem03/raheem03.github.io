@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Book | Raheem Chaudhry</title>
-    <link>https://raheem03.github.io/categories/book/</link>
-      <atom:link href="https://raheem03.github.io/categories/book/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://raheemchaudhry.com/categories/book/</link>
+      <atom:link href="https://raheemchaudhry.com/categories/book/index.xml" rel="self" type="application/rss+xml" />
     <description>Book</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 05 Apr 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://raheem03.github.io/img/profile</url>
+      <url>https://raheemchaudhry.com/img/profile</url>
       <title>Book</title>
-      <link>https://raheem03.github.io/categories/book/</link>
+      <link>https://raheemchaudhry.com/categories/book/</link>
     </image>
     
     <item>
       <title>Python for Public Policy</title>
-      <link>https://raheem03.github.io/project/p3/</link>
+      <link>https://raheemchaudhry.com/project/p3/</link>
       <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>https://raheem03.github.io/project/p3/</guid>
+      <guid>https://raheemchaudhry.com/project/p3/</guid>
       <description></description>
     </item>
     

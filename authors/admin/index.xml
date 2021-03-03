@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Raheem Chaudhry</title>
-    <link>https://raheem03.github.io/authors/admin/</link>
-      <atom:link href="https://raheem03.github.io/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://raheemchaudhry.com/authors/admin/</link>
+      <atom:link href="https://raheemchaudhry.com/authors/admin/index.xml" rel="self" type="application/rss+xml" />
     <description>Raheem Chaudhry</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
     <image>
-      <url>https://raheem03.github.io/img/profile</url>
+      <url>https://raheemchaudhry.com/img/profile</url>
       <title>Raheem Chaudhry</title>
-      <link>https://raheem03.github.io/authors/admin/</link>
+      <link>https://raheemchaudhry.com/authors/admin/</link>
     </image>
     
   </channel>

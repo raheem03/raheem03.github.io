@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags | Raheem Chaudhry</title>
-    <link>https://raheem03.github.io/tags/</link>
-      <atom:link href="https://raheem03.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://raheemchaudhry.com/tags/</link>
+      <atom:link href="https://raheemchaudhry.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 05 Apr 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://raheem03.github.io/img/profile</url>
+      <url>https://raheemchaudhry.com/img/profile</url>
       <title>Tags</title>
-      <link>https://raheem03.github.io/tags/</link>
+      <link>https://raheemchaudhry.com/tags/</link>
     </image>
     
   </channel>
