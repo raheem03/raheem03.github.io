@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Research | Raheem Chaudhry</title>
+    <link>https://raheemchaudhry.com/project/</link>
+      <atom:link href="https://raheemchaudhry.com/project/index.xml" rel="self" type="application/rss+xml" />
+    <description>Research</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 24 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://raheemchaudhry.com/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>Research</title>
+      <link>https://raheemchaudhry.com/project/</link>
+    </image>
+    
+    <item>
+      <title>The Effects of Minority Enfranchisement on Preferences for Public Goods</title>
+      <link>https://raheemchaudhry.com/project/vra/</link>
+      <pubDate>Sun, 24 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://raheemchaudhry.com/project/vra/</guid>
+      <description>&lt;p&gt;Content here&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

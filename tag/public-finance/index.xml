@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Public Finance | Raheem Chaudhry</title>
+    <link>https://raheemchaudhry.com/tag/public-finance/</link>
+      <atom:link href="https://raheemchaudhry.com/tag/public-finance/index.xml" rel="self" type="application/rss+xml" />
+    <description>Public Finance</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 24 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://raheemchaudhry.com/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>Public Finance</title>
+      <link>https://raheemchaudhry.com/tag/public-finance/</link>
+    </image>
+    
+    <item>
+      <title>The Effects of Minority Enfranchisement on Preferences for Public Goods</title>
+      <link>https://raheemchaudhry.com/project/vra/</link>
+      <pubDate>Sun, 24 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://raheemchaudhry.com/project/vra/</guid>
+      <description>&lt;p&gt;Content here&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Effects of Minority Enfranchisement on Preferences for Public Goods</title>
+      <link>https://raheemchaudhry.com/publication/vra/</link>
+      <pubDate>Sun, 24 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://raheemchaudhry.com/publication/vra/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
