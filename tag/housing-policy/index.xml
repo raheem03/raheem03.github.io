@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>housing policy | Raheem Chaudhry</title>
+    <link>https://raheemchaudhry.com/tag/housing-policy/</link>
+      <atom:link href="https://raheemchaudhry.com/tag/housing-policy/index.xml" rel="self" type="application/rss+xml" />
+    <description>housing policy</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Thu, 28 Dec 2023 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://raheemchaudhry.com/media/icon_hub4a456d4d71046b668d401e88f2775c9_83260_512x512_fill_lanczos_center_3.png</url>
+      <title>housing policy</title>
+      <link>https://raheemchaudhry.com/tag/housing-policy/</link>
+    </image>
+    
+    <item>
+      <title>Public Housing, Neighborhood Quality, and Children&#39;s Long-Run Outcomes</title>
+      <link>https://raheemchaudhry.com/publication/public_housing/</link>
+      <pubDate>Thu, 28 Dec 2023 00:00:00 +0000</pubDate>
+      <guid>https://raheemchaudhry.com/publication/public_housing/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
