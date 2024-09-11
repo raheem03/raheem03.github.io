@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Raheem Chaudhry</title>
-    <link>https://raheemchaudhry.com/research/</link>
-      <atom:link href="https://raheemchaudhry.com/research/index.xml" rel="self" type="application/rss+xml" />
-    <description>Raheem Chaudhry</description>
+    <title>Teaching | Raheem Chaudhry</title>
+    <link>https://raheemchaudhry.com/teaching/</link>
+      <atom:link href="https://raheemchaudhry.com/teaching/index.xml" rel="self" type="application/rss+xml" />
+    <description>Teaching</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language>
     <image>
       <url>https://raheemchaudhry.com/media/icon_hub4a456d4d71046b668d401e88f2775c9_83260_512x512_fill_lanczos_center_3.png</url>
-      <title>Raheem Chaudhry</title>
-      <link>https://raheemchaudhry.com/research/</link>
+      <title>Teaching</title>
+      <link>https://raheemchaudhry.com/teaching/</link>
     </image>
     
   </channel>
