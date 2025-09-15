@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Page not found | Housing and Social Policy" />
+<meta property="og:type" content="book" />
+
+<meta property="og:description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
+taught by Raheem Chaudhry at the University of Washington Evans School.</p>" />
+<meta name="github-repo" content="rstudio/bookdown-demo" />
+
+<meta name="author" content="Raheem Chaudhry" />
+
+
+
+<meta name="description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
+taught by Raheem Chaudhry at the University of Washington Evans School.</p>">
+
+<title>Page not found | Housing and Social Policy</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+<!-- header.html -->
+
+<style>
+
+h3 { 
+  /*font-weight: 400;*/
+  font-size: 1.5rem; 
+  margin-top: 1.5rem; 
+  margin-bottom: 0px; 
+  line-height: 0;
+  font-style: bold;
+}
+
+#chart-area .answer-container input.correct-answer:checked ~ .answer-checkmark {
+  background-color: #32006e;
+}
+
+#chart-area .answer-container input.wrong-answer ~ .answer-checkmark {
+  background-color: #b7a57a;
+}
+
+#chart-area .answer-container input.wrong-answer ~ .answer-checkmark::before {
+  background-color: #b7a57a;
+  content: "✕";
+  display: block;
+  text-align: center;
+  color: #fffff8;
+}
+
+.answer-checkmark {
+  transition: background-color 300ms ease, color 300ms ease;
+}
+.answer-checkmark::before {
+  transition: opacity 300ms ease, color 300ms ease;
+}
+
+button {
+  background: none;
+  border: none;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #b7a57a;
+}
+
+.custom-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3em;
+  padding-top: 1em;
+  border-top: 1px solid #ccc;
+  font-size: 1.1em;
+  width: 55%;
+}
+
+.custom-nav a:link {
+  all: unset;
+  /*color: #dec17e;*/
+  color: #959595;
+  cursor: pointer;
+}
+
+.custom-nav a:hover {
+  color: #b7a57a;
+}
+
+.nav-left {
+  flex: 1;
+  text-align: left;
+}
+
+.nav-right {
+  flex: 1;
+  text-align: right;
+}
+
+ul ul, ul ol,
+ol ul, ol ol {
+  width: auto;
+}
+
+/* 1) Remove any bullets and default list padding from the TOC */
+#TOC ul {
+  list-style: none;    /* no bullets */
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;      /* remove default indent */
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 18px; /* 0.9em or 90%, or e.g. 14px, etc. */
+}
+
+#TOC li {
+  padding: 0;
+}
+
+#TOC a:link {
+  all: unset;
+  display: block;
+  padding: 10px;
+}
+
+#TOC a:hover {
+  background-color: #b7a57a;   /* Light gray background on hover */
+  color: #fffff8;
+}
+
+#TOC {
+  max-width: 100%;
+}
+
+/* Position the hamburger icon in the top-right corner */
+.hamburger-icon {
+  position: fixed;
+  top: 15px;
+  left: 20px;
+  width: 30px;
+  height: 18px;
+  cursor: pointer;
+  z-index: 9999; /* on top of everything */
+}
+
+/* The three bars inside the hamburger icon */
+.hamburger-icon span {
+  display: block;
+  height: 4px;
+  margin: 4px 0;
+  background: #b7a57a; /* match Tufte text color or your preference */
+}
+
+/* The container that holds the TOC dropdown */
+#toc-dropdown {
+  display: none; /* hidden by default */
+  position: fixed;
+  top: 50px; /* below the icon */
+  left: 20px;
+  width: 250px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #fffff8;
+  border: 1px solid #ccc;
+  padding: 0px;
+  z-index: 9998;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+/* If you want the main page content to remain full width,
+   you might not need to shift it for Tufte. 
+   But if you do, you can tweak margins here. */
+</style>
+
+<div class="hamburger-icon" id="menu-icon">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- We'll move or clone the existing #TOC into #toc-dropdown on page load -->
+<div id="toc-dropdown">
+  <!-- The TOC will be injected here dynamically by JS below -->
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const originalTOC = document.getElementById("TOC");
+  const tocDropdown = document.getElementById("toc-dropdown");
+  const menuIcon = document.getElementById("menu-icon");
+
+  if (!originalTOC) {
+    console.warn("No #TOC element found in the document. Is toc: true enabled?");
+    return;
+  }
+
+  // Move the existing #TOC content into the #toc-dropdown div
+  tocDropdown.appendChild(originalTOC);
+
+  // Toggle show/hide when the hamburger icon is clicked
+  menuIcon.addEventListener("click", function(event) {
+    event.stopPropagation(); // prevent click from bubbling to document
+    tocDropdown.style.display = (tocDropdown.style.display === "block") ? "none" : "block";
+  });
+
+  // Hide dropdown if clicking anywhere outside it
+  document.addEventListener("click", function(event) {
+    // If click is outside both the TOC and the icon
+    if (!tocDropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+      tocDropdown.style.display = "none";
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="assets/custom.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row"><div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#welcome" id="toc-welcome">Welcome</a></li>
+<li><a href="preliminaries.html#preliminaries" id="toc-preliminaries">Preliminaries</a></li>
+<li><a href="introduction.html#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+</ul>
+</div>
+</div></div>
+<div class="row"><div class="col-sm-12">
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
+</div>
+<div class="custom-nav"><div class="nav-left"></div><div class="nav-right"></div></div>
+</div></div>
