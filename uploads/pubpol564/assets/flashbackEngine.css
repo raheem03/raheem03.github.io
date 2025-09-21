@@ -1,0 +1,245 @@
+.quiz-placed {
+  display: flex;
+  flex-direction: column;  /* stack items vertically */
+  align-items: center;     /* center them horizontally */
+  list-style: none;
+  text-align: center;
+  list-style-position: inside;
+  width: 100%;
+  padding-left: 0;
+}
+.placed-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-height: 50px;
+}
+.placed-item {
+  list-style: none;
+  position: relative;
+  /*margin: 0.25rem 0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  */
+  background: #b7a57a;
+  color: #fffff8;
+}
+.pending {
+  border: 1px dashed #999;
+  padding: 0.75rem;
+  background: #fcfcfc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.drag-item {
+  background: #fffff8;
+  border: 1px solid #b7a57a;
+  /*padding: 0.75rem;
+  border-radius: 4px;
+  margin: 0.5rem 0;*/
+  cursor: grab;
+  position: relative;
+  display: inline-block;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+.event-box {
+  font-size: 1rem;
+  border: 1px solid #b7a57a;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin: 0.5rem 0;
+  width: 60%;
+}
+.drop-zone {
+  list-style: none;
+  display: inline-block;
+  position: relative;
+  border: 2px dashed transparent;
+  margin: 0;
+  padding: 0;
+  min-height: 0rem;
+  transition: all 0.3s ease;
+  overflow: visible;
+}
+.drop-zone.hover {
+  min-height: 3rem;
+  width: 70%;
+  margin: .5rem 0; 
+  border-color: #32006e;
+  background: #eae5f0;
+}
+.drop-zone::before {
+  content: "";
+  position: absolute;
+  /* extend 50px in every direction, for example */
+  top: -1rem;
+  bottom: -1rem;
+  left: -1rem;
+  right: -1rem;
+  background: transparent;
+  pointer-events: auto; /* This ensures we can detect dragover events */
+  z-index: 1;
+}
+.feedback-button {
+    position: absolute;
+    border: none;
+    color: #fffff8;
+    background: #85754d;
+    left: 50%;
+    top: -1rem;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+    font-size: 1rem;           /* Increase font size */
+    padding: 2px 8px;      /* More horizontal padding */
+}
+.correct {
+    background: #4caf50;
+}
+.incorrect {
+    background: #d62728;
+}
+
+.draggable-ping {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(50, 0, 110, 0.6);
+  animation: ping 2s infinite ease-out;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.9;
+  }
+  80% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+.drag-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  text-align: right;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.first-drag::after {
+  content: "🖐️"; /* or ✋ or 🤚 */
+  position: absolute;
+  right: 15px;
+  bottom: -15px;
+  font-size: 1.2rem;
+  animation: bounce 1.2s infinite ease-in-out;
+  pointer-events: none; /* Don't interfere with dragging */
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.timeline-container {
+  position: relative;
+  justify-content: center;
+  width: 100%;
+}
+
+.timeline-container::before {
+  content: "";
+  position: absolute;
+  top: -1rem;
+  bottom: -1rem;
+  left: 50%;
+  width: 2px;
+  background: #85754d;
+  z-index: 0;
+}
+
+.timeline-container::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.25rem;
+  color: #85754d;
+  z-index: 0;
+  opacity: .7;
+}
+
+@keyframes pop {
+/*
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+    30% {
+    transform: scale(3);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+*/
+  0% {
+    transform: scale(10);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0);
+  }
+}
+
+.score-circle.correct,
+.score-circle.incorrect {
+  animation: pop 1s ease;
+}
+
+
+#scoreCircles {
+  text-align: left;
+  margin: 1rem 0;
+}
+
+.score-circle {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.score-circle.correct {
+  background-color: #4caf50;
+}
+
+.score-circle.incorrect {
+  background-color: #d62728;
+}
+
+li.drop-zone.event-box {
+  padding: 0;
+  margin: 0;
+}
+

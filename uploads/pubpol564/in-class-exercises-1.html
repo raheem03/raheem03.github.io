@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Chapter 1 Introduction | Housing and Social Policy" />
+<meta property="og:title" content="In-Class Exercises | Housing and Social Policy" />
 <meta property="og:type" content="book" />
 
 <meta property="og:description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
@@ -19,7 +19,7 @@ taught by Raheem Chaudhry at the University of Washington Evans School.</p>" />
 <meta name="description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
 taught by Raheem Chaudhry at the University of Washington Evans School.</p>">
 
-<title>Chapter 1 Introduction | Housing and Social Policy</title>
+<title>In-Class Exercises | Housing and Social Policy</title>
 
 <link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
@@ -245,53 +245,9 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div></div>
 <div class="row"><div class="col-sm-12">
-<div id="introduction" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<div id="lecture-preview" class="section level2 unnumbered">
-<h2>Lecture Preview</h2>
-<div id="learning-objectives-1" class="section level3 unnumbered">
-<h3>Learning Objectives</h3>
-<p>After this week, students will be able to:</p>
-<ul>
-<li>Articulate their goals for the course, and link the structure of the course to those learning objectives</li>
-<li>Reflect on what it means to have expertise in a policy domain</li>
-<li>Explain why housing matters for individual well-being and society more broadly</li>
-<li>Assess competing perspectives on the purpose of housing policy in the US</li>
-</ul>
-</div>
-<div id="readings-1" class="section level3 unnumbered">
-<h3>Readings</h3>
-<p>This week, you have three readings:</p>
-<ol style="list-style-type: decimal">
-<li>Recording on learning and developing expertise
-<ul>
-<li>What is an expert?</li>
-<li>What are some features of expert knowledge, and what distinguishes it from that of novices?</li>
-</ul></li>
-<li><strong>Ramakrishnan et al, “Why Housing Matters for Upward Mobility.”</strong> I imagine you’re studying housing policy because you think housing is important for well-being. Why does housing matter for well-being? There may be many reasons, but in this article, the authors discuss the ways in which housing might matter specifically for the upward mobility of children.
-<ul>
-<li>Are there other ways housing might matter for intergenerational mobility?</li>
-<li>What other outcomes might housing matter for? How?</li>
-</ul></li>
-<li><strong>Milton Friedman, <em>Capitalism and Freedom</em>, Ch 2.</strong> Milton Friedman was a neoclassical economist and perhaps the most influential economist of the latter half of the 20th century. In general, he believed in minimizing government intervention and in the primacy of the free market. In this chapter, he articulates some justifications for government interventions in markets, which may help us think about the purpose of and justification for housing policy.
-<ul>
-<li>What conceptual justifications does Friedman provide for government intervention in the economy?</li>
-<li>Under these conditions, to what extent could the government justify intervening in the housing market?</li>
-<li>Are there other justifications for intervening in the housing market?</li>
-</ul></li>
-</ol>
-</div>
-<div id="discussion-questions" class="section level3 unnumbered">
-<h3>Discussion Questions</h3>
-<ol style="list-style-type: decimal">
-<li>What are your goals for this class? How might you achieve those goals?</li>
-<li>Why might housing matter for well-being?</li>
-<li>What is – or should be – the goals of housing policy?</li>
-</ol>
-</div>
-<div id="test-your-knowledge" class="section level3 unnumbered">
-<h3>Test Your Knowledge</h3>
-<p>Just one question this week, just to get you used to these “quizzes.” We may discuss these questions at the beginning of class.</p>
+<div id="in-class-exercises-1" class="section level1 unnumbered">
+<h1>In-Class Exercises</h1>
+
 
 <link rel="stylesheet" href="assets/you-draw-it-master/dist/css/style.css">
 <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -300,6 +256,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="chart-container"></div>
 
 <script>
+
+  
   var questions = [];
   var question = {};
 
@@ -310,11 +268,135 @@ document.addEventListener("DOMContentLoaded", function() {
     resultButtonText: "Show Me How I Did"
   };
 
-  question = {
-    heading: "What share of the federal budget went to low-income housing programs in FY (fiscal year) 2024?",
-    data: .7,
-    yAxisMin: 0,
-    yAxisMax: 25
+  question = { 
+    heading: "Plot the homeownership rate over time",
+    data: [
+      {1900: 46.5},
+      {1910: 45.9},
+      {1920: 45.6},
+      {1930: 47.8},
+      {1940: 43.6},
+      {1950: 55.0},
+      {1960: 61.9},
+      {1970: 62.9}, 
+      {1980: 64.4}, 
+      {1990: 64.2}, 
+      {2000: 66.2}, 
+      {2010: 65.4}, 
+      {2024: 65.3},
+    ],
+    precision:0,
+    yAxisMin:0,
+    yAxisMax:100,
+    lastPointShownAt:1900,
+  };
+  questions.push(question);
+  
+  question = { 
+    heading: "Plot the homeownership rate by race (CY 2023)",
+    chartType: "barChart",
+    data: [
+      {"White, Non-Hispanic": 73.2},
+      {"Black, Non-Hispanic": 45.0},
+      {"Asian, Non-Hispanic": 63.7},
+      {"Hispanic": 51.0},
+      {"Other, Non-Hispanic": 57.0},
+    ],
+    defaultValues: 50,
+    precision:0,
+    yAxisMin:0,
+    yAxisMax:100,
+  };
+  questions.push(question);
+
+  question = { 
+    heading: "Plot the household income distribution in the US (CY 2023)",
+    xTickEvery: 50,
+    showPoints: false,
+    data: [
+      {"0": 5.34},
+      {"10000": 6.54},
+      {"20000": 6.72},
+      {"30000": 7.09},
+      {"40000": 6.99},
+      {"50000": 6.75},
+      {"60000": 6.38},
+      {"70000": 5.8},
+      {"80000": 5.34},
+      {"90000": 4.69},
+      {"100000": 4.59},
+      {"110000": 3.63},
+      {"120000": 3.48},
+      {"130000": 2.95},
+      {"140000": 2.55},
+      {"150000": 2.39},
+      {"160000": 1.98},
+      {"170000": 1.72},
+      {"180000": 1.55},
+      {"190000": 1.28},
+      {"200000": 1.33},
+      {"210000": 1},
+      {"220000": 0.9},
+      {"230000": 0.75},
+      {"240000": 0.68},
+      {"250000": 0.69},
+      {"260000": 0.53},
+      {"270000": 0.48},
+      {"280000": 0.4},
+      {"290000": 0.35},
+      {"300000": 0.41},
+      {"310000": 0.29},
+      {"320000": 0.28},
+      {"330000": 0.25},
+      {"340000": 0.21},
+      {"350000": 0.23},
+      {"360000": 0.18},
+      {"370000": 0.17},
+      {"380000": 0.16},
+      {"390000": 0.13},
+      {"400000": 0.16},
+      {"410000": 0.12},
+      {"420000": 0.11},
+      {"430000": 0.1},
+      {"440000": 0.1},
+      {"450000": 0.1},
+      {"460000": 0.08},
+      {"470000": 0.08},
+      {"480000": 0.09},
+      {"490000": 0.08},
+      {"500000": 1.81},
+    ],
+    xTickEvery: 5,
+    precision:0,
+    lastPointShownAt:"0",
+    yAxisMin:0,
+  };
+  questions.push(question);
+  
+  question = { 
+    heading: "Plot the number of homeless individuals over time",
+    data: [
+      {2007: 647258},
+      {2008: 639784},
+      {2009: 630227},
+      {2010: 637077},
+      {2011: 623788},
+      {2012: 621553},
+      {2013: 590364},
+      {2014: 576450},
+      {2015: 564708},
+      {2016: 549928},
+      {2017: 550996},
+      {2018: 552830},
+      {2019: 567715},
+      {2020: 580466},
+      {2022: 582462},
+      {2023: 653104},
+      {2024: 771480},
+    ],
+    precision:0,
+    lastPointShownAt:2007,
+    yAxisMin:0,
   };
   questions.push(question);
   
@@ -330,15 +412,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </div>
 
-</div>
-</div>
-<div id="lecture" class="section level2 unnumbered">
-<h2>Lecture</h2>
-<div id="in-class-exercises" class="section level3" number="1.0.1">
-<h3><span class="header-section-number">1.0.1</span> In-Class Exercises</h3>
 
 </div>
-</div>
-</div>
-<div class="custom-nav"><div class="nav-left"><a class="prev-link" href="preliminaries.html">← Preliminaries</a></div><div class="nav-right"><a class="next-link" href="in-class-exercises-1.html">In-Class Exercises →</a></div></div>
+<div class="custom-nav"><div class="nav-left"><a class="prev-link" href="introduction.html">← Introduction</a></div><div class="nav-right"></div></div>
 </div></div>
