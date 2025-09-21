@@ -251,12 +251,53 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <link rel="stylesheet" href="assets/you-draw-it-master/dist/css/style.css">
 <script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="assets/you-draw-it-master/dist/js/youdrawit.js"></script>    
+<script src="assets/you-draw-it-master/dist/js/youdrawit.js"></script>
+<div class="gate-msg">🔒 This page will unlock on 10/7/2025 at 2:30 PM PT.</div>
+<div class="gated" data-unlock-utc="2025-10-07T21:30:00Z">
 <div id="chart-area" style="max-width: 55%;">
 <div id="chart-container"></div>
 
 <script>
+  (function() {
+    function unlockAll() {
+      document.querySelectorAll(".gated").forEach(function(el){
+        el.style.display = "";
+        el.classList.remove("gated");
+      });
+      document.querySelectorAll(".gate-msg").forEach(function(el){
+        el.remove();
+      });
+      console.log("[gate] unlocked");
+    }
 
+    // URL override
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("unlock") === "1") {
+      unlockAll();
+      return; // skip time check entirely
+    }
+
+    // Otherwise, time-based gate
+    function checkUnlock() {
+      var now = new Date();
+      document.querySelectorAll("[data-unlock-utc]").forEach(function(el) {
+        var t = el.getAttribute("data-unlock-utc");
+        var unlockAt = new Date(t);
+        if (isNaN(unlockAt)) return;
+        if (now >= unlockAt) {
+          el.classList.remove("gated");
+          var ph = el.previousElementSibling;
+          if (ph && ph.classList.contains("gate-msg")) ph.remove();
+        }
+      });
+    }
+
+    // Ensure DOM is ready (safe even if already loaded)
+    document.addEventListener("DOMContentLoaded", function () {
+      checkUnlock();
+      setInterval(checkUnlock, 30 * 1000);
+    });
+  })();
   
   var questions = [];
   var question = {};
@@ -410,6 +451,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .attr("class", "chart")
     .call(myChart);
 </script>
+</div>
 </div>
 
 
