@@ -414,20 +414,12 @@
 
       var circles = void 0;
       var counter = 0;
-      if (question.showPoints !== false) {   // default true
-        for (var between = lowerPos + 1; between <= pos; between++) {
-          c.dots.append("circle")
-            .attr("r", 4.5)
-            .attr("cx", c.x(between))
-            .attr("cy", c.y(indexedData[between]))
-            .attr("class", addClass);
-          counter = counter + 1;
-        }
-        circles = c.dots.selectAll("circle:nth-last-child(-n+" + counter + ")");
-      } else {
-        circles = c.dots.selectAll(null); // empty selection
+      for (var between = lowerPos + 1; between <= pos; between++) {
+        c.dots.append("circle").attr("r", 4.5).attr("cx", c.x(between)).attr("cy", c.y(indexedData[between])).attr("class", addClass);
+        counter = counter + 1;
       }
 
+      circles = c.dots.selectAll("circle:nth-last-child(-n+" + counter + ")");
       /*
       return [
         c.dots.append("circle")
@@ -528,34 +520,15 @@
     c.dots = c.svg.append("g").attr("class", "dots");
 
     // configure axes
-    c.xAxis = d3.axisBottom(c.x);
-    
-    // Build ticks differently depending on whether xTickEvery is provided.
-    // We want integer index ticks: minX, minX+1, ..., maxX
-    if (question.xTickEvery && Number.isInteger(question.xTickEvery) && question.xTickEvery > 1) {
-      // produce all integer indices and keep every Nth
-      var allIdx = d3.range(minX, maxX + 1);
-      var tickVals = allIdx.filter(function(d, i) { return i % question.xTickEvery === 0; });
-    
-      // ensure we include the last tick if it was skipped by the filter
-      if (tickVals[tickVals.length - 1] !== maxX) tickVals.push(maxX);
-    
-      c.xAxis.tickValues(tickVals);
-    } else {
-      // default behavior: let d3 compute a tick per index
-      c.xAxis.ticks(maxX - minX);
-    }
-    
-    // Map index -> your original label (e.g., year string)
-    c.xAxis.tickFormat(function (d) { return indexedTimepoint[d]; });
-    
-    c.yAxis = d3.axisLeft().scale(c.y);
+    c.xAxis = d3.axisBottom().scale(c.x);
+    c.xAxis.tickFormat(function (d) {
+      return indexedTimepoint[d];
+    }).ticks(maxX - minX);
+    c.yAxis = d3.axisLeft().scale(c.y); //.tickValues(c.y.ticks(6));
     c.yAxis.tickFormat(function (d) {
       return formatValue(d, question.unit, question.precision);
     });
-    
     drawAxes(c);
-
 
     c.titles = sel.append("div").attr("class", "titles").call(applyMargin).style("top", "0px");
 
@@ -683,17 +656,12 @@
         return;
       }
 
-    if (question.showPoints !== false) {
       var dot = c.dots.selectAll("circle.result").data(dDefined);
-      dot.enter().append("circle").merge(dot)
-        .attr("r", 4.5)
-        .attr("cx", function (de) { return c.x(de.year); })
-        .attr("cy", function (de) { return c.y(de.value); })
-        .attr("class", "result");
-    } else {
-      c.dots.selectAll("circle.result").remove(); // make sure none remain
-    }
-
+      dot.enter().append("circle").merge(dot).attr("r", 4.5).attr("cx", function (de) {
+        return c.x(de.year);
+      }).attr("cy", function (de) {
+        return c.y(de.value);
+      }).attr("class", "result");
 
       var yourResult = c.labels.selectAll(".your-result").data([d]);
       yourResult.enter().append("div").classed("data-label your-result", true).classed("edge-right", isMobile).merge(yourResult).style("z-index", function () {
@@ -789,372 +757,312 @@
   }
 
   function ydBar(isMobile, state, sel, key, question, globals, data, indexedTimepoint, indexedData) {
-    // --- reset container and make it a positioning context for overlays
-    sel.html("").style("position","relative");
-  
-    // --- extents
-    var minY = d3.min(data, function(d){ return d.value; });
-    var maxY = d3.max(data, function(d){ return d.value; });
-  
-    // --- layout
-    var margin = { top: 40, right: 50, bottom: 30, left: 100 };
-    var width  = sel.node().offsetWidth;
-    var height = 400;
-    var c = { width: width - margin.left - margin.right, height: height - margin.top - margin.bottom };
-  
-    // --- scales
-    var graphMinY = (question.yAxisMin !== undefined) ? question.yAxisMin
-                   : (minY >= 0 ? 0 : minY * getRandom(1, 1.5));
-    var graphMaxY = (question.yAxisMax !== undefined) ? question.yAxisMax
-                   : maxY + (maxY - graphMinY) * getRandom(0.4, 1);
-  
-    var categories = data.map(function(d){ return d.timePoint; });
-  
-    c.x = d3.scaleBand().rangeRound([0, c.width]).padding(0.1).domain(categories);
-    c.y = d3.scaleLinear().range([c.height, 0]).domain([graphMinY, graphMaxY]);
-  
-    // sub-band: side-by-side bars (your vs truth)
-    var groups = ["your","truth"];
-    var xSub   = d3.scaleBand().domain(groups).range([0, c.x.bandwidth()]).padding(0.25);
-  
-    // --- svg root
-    c.svg = sel.append("svg").attr("width", width).attr("height", height)
-      .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .attr("width",  c.width)
-        .attr("height", c.height);
-  
-    // --- defs / gradients / marker (kept from original look)
-    c.defs = d3.select(c.svg.node().parentNode).append("defs");
-    ["black","red","blue"].forEach(function (color) {
-      var g = c.defs.append("linearGradient")
-        .attr("id","gradient-"+color).attr("x1","0%").attr("y1","0%").attr("x2","0%").attr("y2","100%");
-      g.append("stop").attr("offset","0%").attr("class","start");
-      g.append("stop").attr("offset","100%").attr("class","end");
+    var minX = data[0].timePointIndex;
+    var maxX = data[data.length - 1].timePointIndex;
+    var minY = d3.min(data, function (d) {
+      return d.value;
     });
-    c.defs.append("marker").attr("id", "preview-arrowp").attr("orient", "auto")
-      .attr("viewBox", "0 0 10 10").attr("markerWidth", 6).attr("markerHeight", 6)
-      .attr("refX", 1).attr("refY", 5).append("path").attr("d", "M 0 0 L 10 5 L 0 10 z");
-  
-    // --- grid
+    var maxY = d3.max(data, function (d) {
+      return d.value;
+    });
+    var lastPointShownAtIndex = indexedTimepoint.indexOf(question.lastPointShownAt.toString());
+
+    var drawAxes = function drawAxes(c) {
+      c.axis.append("g").attr("class", "x axis").attr("transform", "translate(0," + c.height + ")");
+      // .call(c.xAxis);
+
+      c.axis.append("g").attr("class", "y axis").call(c.yAxis);
+    };
+
+    var makeLabel = function makeLabel(pos, addClass) {
+      var x = c.x(truth) + c.x.bandwidth() / 2;
+      var truthValue = data[0].value;
+      var y = c.y(truthValue);
+
+      var text = formatValue(truthValue, question.unit, question.precision);
+
+      var label = c.labels.append("div").classed("data-label", true).classed(addClass, true).style("opacity", 0).style("left", x + "px").style("top", y + "px");
+      label.append("span")
+      // .classed("no-dot question-label update-font", true)
+      .classed("no-dot", true).append("div").classed("question-label update-font", true).text(text);
+
+      if (pos == minX && isMobile) {
+        label.classed("edge-left", true);
+      }
+      if (pos == maxX && isMobile) {
+        label.classed("edge-right", true);
+      }
+
+      return [{}, label];
+    };
+
+    var drawChart = function drawChart(addClass) {
+      var group = c.charts.append("g").attr("class", "truth");
+
+      makeLabel(truth, addClass);
+
+      var truthSelection = group.append("rect").attr("class", "bar").attr("x", c.x(truth)).attr("y", c.height).attr("height", 0).attr("width", c.x.bandwidth());
+      return truthSelection;
+    };
+
+    // make visual area empty
+    sel.html("");
+
+    var margin = {
+      top: 40,
+      // right: isMobile ? 20 : 50,
+      right: 50,
+      bottom: 30,
+      // left: isMobile ? 20 : 100
+      left: 100
+    };
+    var width = sel.node().offsetWidth;
+    var height = 400;
+    var c = {
+      width: width - (margin.left + margin.right),
+      height: height - (margin.top + margin.bottom)
+    };
+
+    var graphMinY = question.yAxisMin ? question.yAxisMin : minY >= 0 ? 0 : minY * getRandom(1, 1.5);
+    var graphMaxY = question.yAxisMax ? question.yAxisMax : maxY + (maxY - graphMinY) * getRandom(0.4, 1); // add 40 - 100% for segment titles
+    c.x = d3.scaleBand().rangeRound([0, c.width]).padding(0.1);
+    c.x.domain([prediction, truth]);
+    c.y = d3.scaleLinear().range([c.height, 0]);
+    c.y.domain([graphMinY, graphMaxY]);
+
+    c.svg = sel.append("svg").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").attr("width", c.width).attr("height", c.height);
+
+    // gradients
+    c.defs = d3.select(c.svg.node().parentNode).append("defs");
+    ["black", "red", "blue"].forEach(function (color) {
+      var gradient = c.defs.append("linearGradient").attr("id", "gradient-" + color).attr("x1", "0%").attr("y1", "0%").attr("x2", "0%").attr("y2", "100%");
+      gradient.append("stop").attr("offset", "0%").attr("class", "start");
+      gradient.append("stop").attr("offset", "100%").attr("class", "end");
+    });
+
+    c.defs.append("marker").attr("id", "preview-arrowp").attr("orient", "auto").attr("viewBox", "0 0 10 10").attr("markerWidth", 6).attr("markerHeight", 6).attr("refX", 1).attr("refY", 5).append("path").attr("d", "M 0 0 L 10 5 L 0 10 z");
+
+    // make background grid
     c.grid = c.svg.append("g").attr("class", "grid");
-    c.grid.append("g").attr("class", "vertical")
-      .call(d3.axisLeft(c.y).tickValues(c.y.ticks(6)).tickFormat("").tickSize(-c.width));
-  
-    // --- overlay helpers
-    function applyMargin(s){
-      s.style("left",  margin.left + "px")
-       .style("top",   margin.top  + "px")
-       .style("width", c.width     + "px")
-       .style("height",c.height    + "px");
-    }
-  
+
+    c.grid.append("g").attr("class", "vertical").call(d3.axisLeft(c.y).tickValues(c.y.ticks(6)).tickFormat("").tickSize(-c.width));
+
+    var applyMargin = function applyMargin(sel) {
+      sel.style("left", margin.left + "px").style("top", margin.top + "px").style("width", c.width + "px").style("height", c.height + "px");
+    };
+
     setTimeout(function () {
-      var r = c.svg.node().getBoundingClientRect();
-      c.top = r.top + window.scrollY;
-      c.bottom = r.bottom + window.scrollY;
+      var clientRect = c.svg.node().getBoundingClientRect();
+      c.top = clientRect.top + window.scrollY;
+      c.bottom = clientRect.bottom + window.scrollY;
     }, 1000);
-  
-    // --- overlay layers (absolute so labels render above SVG)
-    c.labels = sel.append("div")
-      .attr("class","labels")
-      .style("position","absolute")
-      .style("pointer-events","none")
-      .style("z-index","3")
-      .call(applyMargin);
-  
-    c.titles = sel.append("div")
-      .attr("class","titles")
-      .style("position","absolute")
-      .style("z-index","2")
-      .call(applyMargin)
-      .style("top","0px");
-  
-    c.axis   = c.svg.append("g");
-    c.charts = c.svg.append("g").attr("class","charts");
-  
-    // --- axes
+
+    c.labels = sel.append("div").attr("class", "labels").call(applyMargin);
+    c.axis = c.svg.append("g");
+    c.charts = c.svg.append("g").attr("class", "charts");
+    c.xPredictionCenter = c.x(prediction) + c.x.bandwidth() / 2;
+
+    var userSel = c.svg.append("rect").attr("class", "your-rect");
+
+    // invisible rect for dragging to work
+    var dragArea = c.svg.append("rect").attr("class", "draggable").attr("x", c.x(prediction)).attr("width", c.x.bandwidth()).attr("height", c.height).attr("opacity", 0);
+
+    // configure axes
     c.xAxis = d3.axisBottom().scale(c.x);
     c.yAxis = d3.axisLeft().scale(c.y).tickValues(c.y.ticks(6));
-    c.yAxis.tickFormat(function(d){ return formatValue(d, question.unit, question.precision); });
-  
-    c.axis.append("g").attr("class","x axis")
-      .attr("transform","translate(0,"+c.height+")")
-      .call(c.xAxis);
-  
-    c.axis.append("g").attr("class","y axis").call(c.yAxis);
-  
-    // --- titles
-    c.predictionTitle = c.titles.append("span").style("left","1px").style("width",(c.width/2 - 1)+"px");
-    c.predictionTitle.append("div").attr("class","globals-drawAreaTitle update-font").text(globals.drawAreaTitle);
-  
-    // --- reference markers (optional)
-    if (typeof question.referenceValues !== "undefined") {
-      var withLine = (question.referenceShape === "line");
-      addReferenceValues(c.titles, c.svg, question.referenceValues, c, withLine);
-    }
-  
-    // ---------- STATE & DEFAULTS ----------
-    function defaultForLabel(label){
-      var stub = c.y.invert(c.height - 30); // same 30px stub as original
-      if (question.defaultValues == null) return stub;
-      if (typeof question.defaultValues === "number") return +question.defaultValues;
-      if (question.defaultValues[label] != null) return +question.defaultValues[label];
-      return stub;
-    }
-  
-    if (!state.get(key, "yourData")) {
-      var init = data.map(function(d){
-        return { year: d.year, label: d.timePoint, value: defaultForLabel(d.timePoint), defined: !!question.defaultValues };
-      });
-      state.set(key, "yourData", init);
-    }
-  
-    var resultSection = d3.select(".result." + key);
-  
-    // ---------- DRAW: TRUTH (collapsed) & YOUR (defaults) ----------
-    var truthBars = c.charts.append("g").attr("class","truth").selectAll("rect.truth")
-      .data(data).enter().append("rect")
-        .attr("class","bar")
-        .attr("x", function(d){ return c.x(d.timePoint) + xSub("truth"); })
-        .attr("y", c.height)
-        .attr("width", xSub.bandwidth())
-        .attr("height", 0);
-  
-    var yourBars = c.charts.append("g").attr("class","your").selectAll("rect.your-rect")
-      .data(data).enter().append("rect")
-        .attr("class","your-rect")
-        .attr("x", function(d){ return c.x(d.timePoint) + xSub("your"); })
-        .attr("width", xSub.bandwidth())
-        .attr("y", function(d,i){ return c.y(state.get(key, "yourData")[i].value); })
-        .attr("height", function(d,i){ var v = state.get(key, "yourData")[i].value; return c.height - c.y(v); });
-  
-    // --- PREVIEW POINTER + WAVE (first bar hint, optional)
-    if (data.length > 0 && state.get(key, "yourData") && state.get(key, "yourData").length > 0) {
-      var firstLabel   = data[0].timePoint;
-      var firstXCenter = c.x(firstLabel) + xSub("your") + xSub.bandwidth() / 2;
-      var firstVal = state.get(key, "yourData")[0].value;
-      var hintY    = c.y(firstVal);
-  
-      c.preview = c.svg.append("path")
-        .attr("class", "controls preview-pointer")
-        .attr("marker-end", "url(#preview-arrowp)")
-        .attr("d",
-          "M" + (firstXCenter + 45) + "," + (hintY - 50) +
-          " Q" + firstXCenter + "," + (hintY - 50) +
-          " " + firstXCenter + "," + (hintY - 10)
-        );
-  
-      var arc = d3.arc().startAngle(0).endAngle(2 * Math.PI);
-      function initWaves(n){ return Array.from({length: n}, () => ({})); }
-      var wavesData = initWaves(4);
-  
-      c.wave = c.svg.append("g")
-        .attr("class", "wave controls")
-        .attr("transform", "translate(" + firstXCenter + "," + hintY + ")");
-  
-      var wavePaths = c.wave.selectAll("path")
-        .data(wavesData)
-        .enter()
-        .append("path")
-          .attr("class", "wave")
-          .attr("d", arc);
-  
-      function arcTween(){
-        return function(d){
-          if (sel.classed("drawn")) {
-            wavePaths.interrupt();
-            return function(){ return null; };
-          }
-          var interp = d3.interpolate(0, 100);
-          return function(t){
-            d.innerRadius = interp(t);
-            d.outerRadius = d.innerRadius + 3;
-            return arc(d);
-          };
-        };
-      }
-  
-      function moveWave(){
-        wavePaths
-          .style("opacity", 0.6)
-          .transition()
-          .ease(d3.easeLinear)
-          .delay(function(_, i){ return 1000 + i * 300; })
-          .duration(4000)
-          .attrTween("d", arcTween())
-          .style("opacity", 0)
-          .on("end", function(_, i){
-            if (i === wavesData.length - 1 && !sel.classed("drawn")) {
-              wavesData = initWaves(4);
-              wavePaths = c.wave.selectAll("path").data(wavesData);
-              wavePaths.attr("d", arc);
-              moveWave();
-            }
-          });
-      }
-      moveWave();
-    }
-  
-    // ---------- LABELS ----------
-    function upsertYourLabel(i, val){
-      var left = c.x(data[i].timePoint) + xSub("your") + xSub.bandwidth()/2;
-      var lab = c.labels.selectAll(".your-result-"+i).data([val]);
-      lab = lab.enter().append("div")
-              .attr("class","data-label your-result your-result-"+i)
-              .classed("edge-right", isMobile)
-              .style("position","absolute")
-              .style("z-index","3")
-            .merge(lab);
-      lab.style("left", left + "px")
-         .style("top",  c.y(val) + "px")
-         .html("")
-         .append("span").classed("no-dot", true)
-         .append("div").attr("class","question-label update-font")
-         .text(formatValue(val, question.unit, question.precision));
-    }
-  
-    // helpers for truth label positioning
-    function truthLabelLeft(d){ return c.x(d.timePoint) + xSub("truth") + xSub.bandwidth()/2; }
-    function truthLabelTop(d){  return c.y(d.value); }
-  
-    // PRE-CREATE ONE TRUTH LABEL PER BAR (hidden; fades in on reveal)
-    var truthLabels = c.labels.selectAll("div.truth-label")
-      .data(data)
-      .enter()
-      .append("div")
-        .attr("class","data-label truth-label")
-        .classed("blue", true)                 // <-- add this
-        .classed("edge-left",  function(d,i){ return isMobile && i === 0; })
-        .classed("edge-right", function(d,i){ return isMobile && i === data.length - 1; })
-        .style("opacity", 0)
-        .style("left", function(d){ return (c.x(d.timePoint) + xSub("truth") + xSub.bandwidth()/2) + "px"; })
-        .style("top",  function(d){ return c.y(d.value) + "px"; })
-        .each(function(d){
-          var s = d3.select(this);
-          s.html("")
-           .append("span").classed("no-dot", true)
-           .append("div").attr("class","question-label update-font")
-           .text(formatValue(d.value, question.unit, question.precision));
-        });
-
-  
-    // ---------- INTERACTION ----------
-    var dragAreas = c.charts.append("g").selectAll("rect.draggable")
-      .data(data).enter().append("rect")
-        .attr("class","draggable")
-        .attr("x", function(d){ return c.x(d.timePoint); })
-        .attr("y", 0)
-        .attr("width", c.x.bandwidth())
-        .attr("height", c.height)
-        .attr("opacity", 0);
-  
-    function drawYourBar(i){
-      var v = state.get(key, "yourData")[i].value;
-      yourBars.filter(function(_,j){ return j===i; })
-        .attr("y", c.y(v))
-        .attr("height", c.height - c.y(v));
-      upsertYourLabel(i, v);
-    }
-  
-    function checkCompleted(){
-      var done = d3.mean(state.get(key, "yourData"), ƒ("defined")) === 1;
-      if (!state.get(key, "completed") && done) {
-        state.set(key, "completed", true);
-        if (resultSection.node()) resultSection.node().classList.add("finished");
-        var btn = resultSection.select("button").node();
-        if (btn) btn.removeAttribute("disabled");
-      }
-    }
-  
-    var drag = d3.drag().on("drag", function(d,i){
-      if (state.get(key, "resultShown")) return;
-  
-      sel.node().classList.add("drawn");
-  
-      // fade out hint
-      if (c.preview) c.preview.transition().duration(150).style("opacity", 0);
-      if (c.wave)    c.wave.transition().duration(150).style("opacity", 0);
-  
-      var m = d3.mouse(c.svg.node());
-      if (m[1] < 0) return;
-  
-      var val = clamp(c.y.domain()[0], c.y.domain()[1], c.y.invert(m[1]));
-      var st  = state.get(key, "yourData");
-      st[i].value   = val;
-      st[i].defined = true;
-      state.set(key, "yourData", st);
-  
-      c.predictionTitle.style("opacity", (m[1] < 80) ? 0 : 1);
-  
-      drawYourBar(i);
-      checkCompleted();
+    c.yAxis.tickFormat(function (d) {
+      return formatValue(d, question.unit, question.precision);
     });
-  
-    dragAreas.call(d3.drag().container(c.svg.node()).subject(function(){ return {}; }).on("drag", drag.on("drag")))
-             .on("click", function(d,i){
-                if (state.get(key, "resultShown")) return;
-                var m = d3.mouse(c.svg.node());
-                var val = clamp(c.y.domain()[0], c.y.domain()[1], c.y.invert(m[1]));
-                var st  = state.get(key, "yourData");
-                st[i].value   = val;
-                st[i].defined = true;
-                state.set(key, "yourData", st);
-                drawYourBar(i);
-                checkCompleted();
-              });
-  
-    // ---------- REVEAL ----------
-    function showResultChart(){
-      if (!state.get(key, "completed")) return;
-  
-      c.labels.selectAll(".your-result").classed("hideLabels", true);
-  
-      // animate truth bars up; when each lands, fade its label in
-      truthBars.transition().duration(1300)
-        .attr("y", function(d){ return c.y(d.value); })
-        .attr("height", function(d){ return c.height - c.y(d.value); })
-        .on("end", function(d, i){
-          truthLabels.filter(function(_, j){ return j === i; })
-            .style("left", truthLabelLeft(d) + "px")
-            .style("top",  truthLabelTop(d)  + "px")
-            .transition().duration(200)
-            .style("opacity", 1);
-        });
-  
-      // safety: ensure labels visible even if transition was interrupted
-      setTimeout(function(){
-        truthLabels.style("opacity", 1);
-        if (resultSection.node()) resultSection.node().classList.add("shown");
-        if (!state.get(key, "score") && globals.showScore) {
-          getScore(
-            key,
-            data.map(function(d){ return { year: d.year, value: d.value }; }),
-            state,
-            graphMaxY, graphMinY, resultSection,
-            globals.scoreTitle, globals.scoreButtonText,
-            globals.scoreButtonTooltip, globals.scoreHtml
-          );
-        }
-        state.set(key, "resultShown", true);
-      }, 1300);
+    drawAxes(c);
+
+    c.titles = sel.append("div").attr("class", "titles").call(applyMargin).style("top", "0px");
+
+    // add a preview pointer 
+    var xs = c.xPredictionCenter;
+    var ys = c.height - 30;
+    var xArrowStart = xs + 45;
+    var yArrowStart = ys - 50;
+    var xTextStart = xArrowStart + 5;
+    var yTextStart = yArrowStart - 10;
+
+    c.preview = c.svg.append("path").attr("class", "controls preview-pointer").attr("marker-end", "url(#preview-arrowp)").attr("d", "M" + xArrowStart + "," + yArrowStart + " Q" + xs + "," + yArrowStart + " " + xs + "," + (ys - 10));
+
+    // add preview wave
+    var arc = d3.arc().startAngle(0).endAngle(2 * Math.PI);
+
+    var nrWaves = initializeWaves(4);
+    c.wave = c.svg.append("g").attr("class", "wave controls");
+    c.wave.append("clipPath").attr("id", "wave-clip-" + key).append("rect").attr("width", c.width).attr("height", c.height);
+
+    c.wave = c.wave.append("g").attr("clip-path", "url(#wave-clip-" + key + ")").append("g").attr("transform", "translate(" + xs + ", " + ys + ")").selectAll("path").data(nrWaves).enter().append("path").attr("class", "wave").attr("d", arc);
+
+    moveWave();
+    function moveWave() {
+      c.wave.style("opacity", .6).transition().ease(d3.easeLinear).delay(function (d, i) {
+        return 1000 + i * 300;
+      }).duration(4000).attrTween("d", arcTween()).style("opacity", 0).on("end", restartWave);
     }
-  
+
+    function initializeWaves(nr) {
+      var nrWaves = [];
+      for (var i = 0; i < nr; i++) {
+        nrWaves.push({});
+      }
+      return nrWaves;
+    }
+
+    function restartWave(d, i) {
+      if (i === nrWaves.length - 1) {
+        // restart after last wave is finished
+        var nrWaves2 = initializeWaves(4);
+        c.wave = c.wave.data(nrWaves2);
+        c.wave.attr("d", arc);
+        moveWave();
+      }
+    }
+
+    function arcTween() {
+      return function (d) {
+        if (sel.classed("drawn")) {
+          c.wave.interrupt();
+          console.log("waves interrupted");
+          return;
+        }
+        var interpolate = d3.interpolate(0, 100);
+        return function (t) {
+          d.innerRadius = interpolate(t);
+          d.outerRadius = interpolate(t) + 3;
+          return arc(d);
+        };
+      };
+    }
+
+    // add preview notice
+    c.controls = sel.append("div").attr("class", "controls").call(applyMargin).style("padding-left", c.xPredictionCenter);
+
+    c.controls.append("span").style("left", xTextStart + "px").style("top", yTextStart + "px").append("div").attr("class", "globals-drawBar update-font").text(globals.drawBar);
+
+    if (typeof question.referenceValues !== "undefined") {
+      if (question.referenceShape === "tick") {
+        addReferenceValues(c.controls, c.svg, question.referenceValues, c, false);
+      } else {
+        //question.referenceShape === "line"
+        addReferenceValues(c.controls, c.svg, question.referenceValues, c, true);
+      }
+    }
+
+    // make chart
+    var truthSelection = drawChart("blue");
+
+    // segment title
+    c.predictionTitle = c.titles.append("span").style("left", "1px").style("width", c.width / 2 - 1 + "px");
+    c.predictionTitle.append("div").attr("class", "globals-drawAreaTitle update-font").text(globals.drawAreaTitle);
+
+    // Interactive user selection part
+    userSel.attr("x", c.x(prediction)).attr("y", c.height - 30).attr("width", c.x.bandwidth()).attr("height", 30);
+
+    if (!state.get(key, yourData)) {
+      var val = data.map(function (d) {
+        return { year: d.year, value: indexedData[lastPointShownAtIndex], defined: 0 };
+      }).filter(function (d) {
+        if (d.year == lastPointShownAtIndex) d.defined = true;
+        return d.year >= lastPointShownAtIndex;
+      });
+      state.set(key, "yourData", val);
+    }
+
+    var resultSection = d3.select(".result." + key);
+    var drawUserBar = function drawUserBar(year) {
+      var h = c.y(state.get(key, yourData)[0].value);
+      userSel.attr("y", h).attr("height", c.height - h);
+      var d = state.get(key, yourData).filter(function (d) {
+        return d.year === year;
+      })[0];
+      // const dDefined = state.get(key, yourData).filter(d => d.defined && (d.year !== lastPointShownAtIndex));
+
+      if (!d.defined) {
+        return;
+      }
+
+      var yourResult = c.labels.selectAll(".your-result").data([d]);
+      yourResult.enter().append("div").classed("data-label your-result", true).classed("edge-right", isMobile).merge(yourResult).style("left", c.xPredictionCenter + "px").style("top", function (r) {
+        return c.y(r.value) + "px";
+      }).html("").append("span").classed("no-dot", true).append("div").classed("question-label update-font", true).text(function (r) {
+        return question.precision ? formatValue(r.value, question.unit, question.precision) : formatValue(r.value, question.unit, question.precision, 0);
+      });
+    };
+    if (sel.classed("drawn")) {
+      drawUserBar(lastPointShownAtIndex);
+    }
+    
+    var interactionHandler = function interactionHandler() {
+      if (state.get(key, resultShown)) {
+        return;
+      }
+
+      sel.node().classList.add("drawn");
+
+      var pos = d3.mouse(c.svg.node());
+      // if (pos[1] < margin.top) { return; }
+      if (pos[1] < 0) {
+        return;
+      }
+      var value = clamp(c.y.domain()[0], c.y.domain()[1], c.y.invert(pos[1]));
+      var yearPoint = lastPointShownAtIndex;
+
+      state.get(key, yourData).forEach(function (d) {
+        d.value = value;
+        d.defined = true;
+        yearPoint = d.year;
+      });
+
+      if (pos[1] < 80) {
+        c.predictionTitle.style("opacity", 0);
+      } else if (pos[1] >= 80) {
+        c.predictionTitle.style("opacity", 1);
+      }
+
+      drawUserBar(yearPoint);
+
+      if (!state.get(key, completed) && d3.mean(state.get(key, yourData), ƒ("defined")) == 1) {
+        state.set(key, completed, true);
+        resultSection.node().classList.add("finished");
+        resultSection.select("button").node().removeAttribute("disabled");
+      }
+    };
+
+    c.svg.call(d3.drag().on("drag", interactionHandler));
+    c.svg.on("click", interactionHandler);
+
+    var showResultChart = function showResultChart() {
+      if (!state.get(key, completed)) {
+        return;
+      }
+      c.labels.selectAll(".your-result").node().classList.add("hideLabels");
+
+      var h = c.y(data[0].value);
+      truthSelection.transition().duration(1300).attr("y", h).attr("height", c.height - h);
+
+      dragArea.attr("class", "");
+
+      setTimeout(function () {
+        c.labels.select("div.data-label").style("opacity", 1);
+        resultSection.node().classList.add("shown");
+
+        if (!state.get(key, score) && globals.showScore) {
+          var _truth = data.filter(function (d) {
+            return d.year === lastPointShownAtIndex;
+          });
+          getScore(key, _truth, state, graphMaxY, graphMinY, resultSection, globals.scoreTitle, globals.scoreButtonText, globals.scoreButtonTooltip, globals.scoreHtml);
+        }
+        state.set(key, resultShown, true);
+      }, 1300);
+    };
     resultSection.select("button").on("click", showResultChart);
-  
-    // Already revealed? draw instantly and show labels
-    if (state.get(key, "resultShown")) {
-      truthBars
-        .attr("y", function(d){ return c.y(d.value); })
-        .attr("height", function(d){ return c.height - c.y(d.value); });
-      truthLabels
-        .style("left", function(d){ return truthLabelLeft(d) + "px"; })
-        .style("top",  function(d){ return truthLabelTop(d)  + "px"; })
-        .style("opacity", 1);
-      if (resultSection.node()) resultSection.node().classList.add("shown");
+    if (state.get(key, resultShown)) {
+      showResultChart();
     }
   }
-
 
   /*
   import { ƒ } from "./helpers/function";
@@ -1538,9 +1446,7 @@
           console.log("invalid result!");
         }
 
-        if (!q.chartType) {
-          q.chartType = getChartType(q.data);
-        }
+        q.chartType = getChartType(q.data);
         q.heading = typeof q.heading === "undefined" ? "" : q.heading;
         q.subHeading = typeof q.subHeading === "undefined" ? "" : q.subHeading;
         q.resultHtml = typeof q.resultHtml === "undefined" ? "<br>" : q.resultHtml;
@@ -1549,8 +1455,7 @@
         q.referenceShape = typeof q.referenceShape === "undefined" ? "line" : q.referenceShape;
         q.key = "q" + (index + 1);
 
-        if (q.chartType === "barChart" && isNumber(q.data)) {
-          // legacy single-value bar chart
+        if (q.chartType === "barChart") {
           q.data = [{ value: q.data }];
         }
 
