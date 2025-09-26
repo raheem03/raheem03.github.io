@@ -27,6 +27,8 @@ h1 {
 }
 */
 
+.gated { display: none; }
+
 /* If you want every element *inside* #chart-area to do box-sizing, do: */
 #chart-area * {
   box-sizing: border-box;
