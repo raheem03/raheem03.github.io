@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Housing and Social Policy" />
+<meta property="og:title" content="In-Class Exercises | Housing and Social Policy" />
 <meta property="og:type" content="book" />
 
 <meta property="og:description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
@@ -19,7 +19,7 @@ taught by Raheem Chaudhry at the University of Washington Evans School.</p>" />
 <meta name="description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
 taught by Raheem Chaudhry at the University of Washington Evans School.</p>">
 
-<title>Housing and Social Policy</title>
+<title>In-Class Exercises | Housing and Social Policy</title>
 
 <link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
@@ -240,39 +240,224 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="index.html#welcome" id="toc-welcome">Welcome</a></li>
 <li><a href="preliminaries.html#preliminaries" id="toc-preliminaries">Preliminaries</a></li>
 <li><a href="introduction.html#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="history-public-housing.html#history-public-housing" id="toc-history-public-housing"><span class="toc-section-number">2</span> History; Public Housing</a></li>
+<li><a href="in-class-exercises.html#in-class-exercises" id="toc-in-class-exercises">In-Class Exercises</a></li>
 </ul>
 </div>
 </div></div>
 <div class="row"><div class="col-sm-12">
-<div id="header">
-<h1 class="title">Housing and Social Policy</h1>
-<h4 class="author"><em><a href="https://raheemchaudhry.com/">Raheem Chaudhry</a></em></h4>
-<h4 class="date"><em>Last updated: 2025-09-27</em></h4>
+<div id="in-class-exercises" class="section level1 unnumbered">
+<h1>In-Class Exercises</h1>
+
+
+<link rel="stylesheet" href="assets/you-draw-it-master/dist/css/style.css">
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="assets/you-draw-it-master/dist/js/youdrawit.js"></script>
+<!--
+<div class="gate-msg">🔒 This page will unlock on 10/7/2025 at 2:30 PM PT.</div>
+<div class="gated" data-unlock-utc="2025-10-07T21:30:00Z">
+-->
+<div id="chart-area" style="max-width: 55%;">
+<div id="chart-container"></div>
+
+<script>
+  (function() {
+    function unlockAll() {
+      document.querySelectorAll(".gated").forEach(function(el){
+        el.style.display = "";
+        el.classList.remove("gated");
+      });
+      document.querySelectorAll(".gate-msg").forEach(function(el){
+        el.remove();
+      });
+      console.log("[gate] unlocked");
+    }
+
+    // URL override
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("unlock") === "1") {
+      unlockAll();
+      return; // skip time check entirely
+    }
+
+    // Otherwise, time-based gate
+    function checkUnlock() {
+      var now = new Date();
+      document.querySelectorAll("[data-unlock-utc]").forEach(function(el) {
+        var t = el.getAttribute("data-unlock-utc");
+        var unlockAt = new Date(t);
+        if (isNaN(unlockAt)) return;
+        if (now >= unlockAt) {
+          el.classList.remove("gated");
+          var ph = el.previousElementSibling;
+          if (ph && ph.classList.contains("gate-msg")) ph.remove();
+        }
+      });
+    }
+
+    // Ensure DOM is ready (safe even if already loaded)
+    document.addEventListener("DOMContentLoaded", function () {
+      checkUnlock();
+      setInterval(checkUnlock, 30 * 1000);
+    });
+  })();
+  
+  var questions = [];
+  var question = {};
+
+  var globals = { 
+    default: "en",
+    showScore: false,
+    resultButtonTooltip: false,
+    resultButtonText: "Show Me How I Did"
+  };
+
+  question = { 
+    heading: "Plot the homeownership rate over time",
+    data: [
+      {1900: 46.5},
+      {1910: 45.9},
+      {1920: 45.6},
+      {1930: 47.8},
+      {1940: 43.6},
+      {1950: 55.0},
+      {1960: 61.9},
+      {1970: 62.9}, 
+      {1980: 64.4}, 
+      {1990: 64.2}, 
+      {2000: 66.2}, 
+      {2010: 65.4}, 
+      {2024: 65.3},
+    ],
+    precision:0,
+    yAxisMin:0,
+    yAxisMax:100,
+    lastPointShownAt:1900,
+  };
+  questions.push(question);
+  
+  question = { 
+    heading: "Plot the homeownership rate by race (CY 2023)",
+    chartType: "barChart",
+    data: [
+      {"White, Non-Hispanic": 73.2},
+      {"Black, Non-Hispanic": 45.0},
+      {"Asian, Non-Hispanic": 63.7},
+      {"Hispanic": 51.0},
+      {"Other, Non-Hispanic": 57.0},
+    ],
+    defaultValues: 50,
+    precision:0,
+    yAxisMin:0,
+    yAxisMax:100,
+  };
+  questions.push(question);
+
+  question = { 
+    heading: "Plot the household income distribution in the US (CY 2023)",
+    xTickEvery: 50,
+    showPoints: false,
+    data: [
+      {"0": 5.34},
+      {"10000": 6.54},
+      {"20000": 6.72},
+      {"30000": 7.09},
+      {"40000": 6.99},
+      {"50000": 6.75},
+      {"60000": 6.38},
+      {"70000": 5.8},
+      {"80000": 5.34},
+      {"90000": 4.69},
+      {"100000": 4.59},
+      {"110000": 3.63},
+      {"120000": 3.48},
+      {"130000": 2.95},
+      {"140000": 2.55},
+      {"150000": 2.39},
+      {"160000": 1.98},
+      {"170000": 1.72},
+      {"180000": 1.55},
+      {"190000": 1.28},
+      {"200000": 1.33},
+      {"210000": 1},
+      {"220000": 0.9},
+      {"230000": 0.75},
+      {"240000": 0.68},
+      {"250000": 0.69},
+      {"260000": 0.53},
+      {"270000": 0.48},
+      {"280000": 0.4},
+      {"290000": 0.35},
+      {"300000": 0.41},
+      {"310000": 0.29},
+      {"320000": 0.28},
+      {"330000": 0.25},
+      {"340000": 0.21},
+      {"350000": 0.23},
+      {"360000": 0.18},
+      {"370000": 0.17},
+      {"380000": 0.16},
+      {"390000": 0.13},
+      {"400000": 0.16},
+      {"410000": 0.12},
+      {"420000": 0.11},
+      {"430000": 0.1},
+      {"440000": 0.1},
+      {"450000": 0.1},
+      {"460000": 0.08},
+      {"470000": 0.08},
+      {"480000": 0.09},
+      {"490000": 0.08},
+      {"500000": 1.81},
+    ],
+    xTickEvery: 5,
+    precision:0,
+    lastPointShownAt:"0",
+    yAxisMin:0,
+  };
+  questions.push(question);
+  
+  question = { 
+    heading: "Plot the number of homeless individuals over time",
+    data: [
+      {2007: 647258},
+      {2008: 639784},
+      {2009: 630227},
+      {2010: 637077},
+      {2011: 623788},
+      {2012: 621553},
+      {2013: 590364},
+      {2014: 576450},
+      {2015: 564708},
+      {2016: 549928},
+      {2017: 550996},
+      {2018: 552830},
+      {2019: 567715},
+      {2020: 580466},
+      {2022: 582462},
+      {2023: 653104},
+      {2024: 771480},
+    ],
+    precision:0,
+    lastPointShownAt:2007,
+    yAxisMin:0,
+  };
+  questions.push(question);
+  
+  var myChart = youdrawit
+    .chart()
+    .globals(globals)
+    .questions(questions);
+
+  d3.select("#chart-container")
+    .append("div")
+    .attr("class", "chart")
+    .call(myChart);
+</script>
 </div>
-<div id="welcome" class="section level1 unnumbered">
-<h1>Welcome</h1>
-<p>Welcome to PUBPOL 564, Housing and Social Policy. This page hosts lecture notes and some content associated with the course.</p>
-<div id="how-to-use-these-notes" class="section level2 unnumbered">
-<h2>How to Use These Notes</h2>
-<div id="before-class" class="section level3 unnumbered">
-<h3>Before class</h3>
-<p>Each week, you are <strong>required</strong> to complete the <u>lecture</u> preview associated with a lecture <em>before</em> class. In these previews, I will typically:</p>
-<ul>
-<li>Articulate learning objectives</li>
-<li>Justify assigned readings and provide guiding questions</li>
-<li>Provide some notes or interactive exercises to get you thinking about the topic</li>
-</ul>
-<p>You are also <strong>required</strong> to do any <u>assigned reading</u> <em>before</em> class. I will primarily ask you to focus on readings that enrich or complement the lecture and our discussions. Each week in the lecture preview, I will provide some justification for the readings and some guiding questions you may consider as you read.</p>
-<p>Each week, these lecture previews may come with additional discussion questions for you to consider, beyond those presented with each of the readings.</p>
-<p>Many weeks, the lecture preview will also come with come with some interactive questions. These are meant to help motivate the upcoming lecture and to get you thinking about the topic. After you complete these, note whether your guesses were accurate or not. If not, think about why you were wrong, and how the correct information might impact your beliefs.</p>
-<p>Take the discussion questions and the interactive questions seriously. I strongly encourage you to write down your reflections. We may discuss any of this in person, either as a class or in small groups.</p>
 </div>
-<div id="after-class" class="section level3 unnumbered">
-<h3>After class</h3>
-<p>You are <strong>required</strong> to review the lecture notes after class. I also encourage you to review the supplementary reading.</p>
+
 
 </div>
-</div>
-</div>
-<div class="custom-nav"><div class="nav-left"></div><div class="nav-right"><a class="next-link" href="preliminaries.html">Preliminaries →</a></div></div>
+<div class="custom-nav"><div class="nav-left"><a class="prev-link" href="history-public-housing.html">← History; Public Housing</a></div><div class="nav-right"></div></div>
 </div></div>

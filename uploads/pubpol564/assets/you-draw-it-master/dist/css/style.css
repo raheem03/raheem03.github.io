@@ -569,6 +569,25 @@ body {
   opacity: 1;
 }
 
+
+
+/* Tufte hides/reshapes sidenotes on small screens — keep them visible here */
+@media (max-width: 760px) {
+  #chart-area {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #chart-area #content {
+    min-width: 380px;
+  }
+  #chart-area .sidenote,
+  #chart-area .marginnote {
+    display: block !important;  /* don’t let Tufte hide it */
+    float: right;               /* keep it in the margin */
+  }
+}
+
+
 /******************************************************************************
  * The rest (breadcrumb, footer, #content, etc.) seemed unrelated, so omitted *
  * or commented out.                                                          *
