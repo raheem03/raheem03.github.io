@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Chapter 2 Federal Rental Assistance | Housing and Social Policy" />
+<meta property="og:type" content="book" />
+
+<meta property="og:description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
+taught by Raheem Chaudhry at the University of Washington Evans School.</p>" />
+<meta name="github-repo" content="rstudio/bookdown-demo" />
+
+<meta name="author" content="Raheem Chaudhry" />
+
+
+
+<meta name="description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
+taught by Raheem Chaudhry at the University of Washington Evans School.</p>">
+
+<title>Chapter 2 Federal Rental Assistance | Housing and Social Policy</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+<!-- header.html -->
+
+<style>
+
+h3 { 
+  /*font-weight: 400;*/
+  font-size: 1.5rem; 
+  margin-top: 1.5rem; 
+  margin-bottom: 0px; 
+  line-height: 0;
+  font-style: bold;
+}
+
+#chart-area .answer-container input.correct-answer:checked ~ .answer-checkmark {
+  background-color: #32006e;
+}
+
+#chart-area .answer-container input.wrong-answer ~ .answer-checkmark {
+  background-color: #b7a57a;
+}
+
+#chart-area .answer-container input.wrong-answer ~ .answer-checkmark::before {
+  background-color: #b7a57a;
+  content: "✕";
+  display: block;
+  text-align: center;
+  color: #fffff8;
+}
+
+.answer-checkmark {
+  transition: background-color 300ms ease, color 300ms ease;
+}
+.answer-checkmark::before {
+  transition: opacity 300ms ease, color 300ms ease;
+}
+
+button {
+  background: none;
+  border: none;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #b7a57a;
+}
+
+.custom-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3em;
+  padding-top: 1em;
+  border-top: 1px solid #ccc;
+  font-size: 1.1em;
+  width: 55%;
+}
+
+.custom-nav a:link {
+  all: unset;
+  /*color: #dec17e;*/
+  color: #959595;
+  cursor: pointer;
+}
+
+.custom-nav a:hover {
+  color: #b7a57a;
+}
+
+.nav-left {
+  flex: 1;
+  text-align: left;
+}
+
+.nav-right {
+  flex: 1;
+  text-align: right;
+}
+
+ul ul, ul ol,
+ol ul, ol ol {
+  width: auto;
+}
+
+/* 1) Remove any bullets and default list padding from the TOC */
+#TOC ul {
+  list-style: none;    /* no bullets */
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;      /* remove default indent */
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 18px; /* 0.9em or 90%, or e.g. 14px, etc. */
+}
+
+#TOC li {
+  padding: 0;
+}
+
+#TOC a:link {
+  all: unset;
+  display: block;
+  padding: 10px;
+}
+
+#TOC a:hover {
+  background-color: #b7a57a;   /* Light gray background on hover */
+  color: #fffff8;
+}
+
+#TOC {
+  max-width: 100%;
+}
+
+/* Position the hamburger icon in the top-right corner */
+.hamburger-icon {
+  position: fixed;
+  top: 15px;
+  left: 20px;
+  width: 30px;
+  height: 18px;
+  cursor: pointer;
+  z-index: 9999; /* on top of everything */
+}
+
+/* The three bars inside the hamburger icon */
+.hamburger-icon span {
+  display: block;
+  height: 4px;
+  margin: 4px 0;
+  background: #b7a57a; /* match Tufte text color or your preference */
+}
+
+/* The container that holds the TOC dropdown */
+#toc-dropdown {
+  display: none; /* hidden by default */
+  position: fixed;
+  top: 50px; /* below the icon */
+  left: 20px;
+  width: 250px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #fffff8;
+  border: 1px solid #ccc;
+  padding: 0px;
+  z-index: 9998;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+/* If you want the main page content to remain full width,
+   you might not need to shift it for Tufte. 
+   But if you do, you can tweak margins here. */
+</style>
+
+<div class="hamburger-icon" id="menu-icon">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- We'll move or clone the existing #TOC into #toc-dropdown on page load -->
+<div id="toc-dropdown">
+  <!-- The TOC will be injected here dynamically by JS below -->
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const originalTOC = document.getElementById("TOC");
+  const tocDropdown = document.getElementById("toc-dropdown");
+  const menuIcon = document.getElementById("menu-icon");
+
+  if (!originalTOC) {
+    console.warn("No #TOC element found in the document. Is toc: true enabled?");
+    return;
+  }
+
+  // Move the existing #TOC content into the #toc-dropdown div
+  tocDropdown.appendChild(originalTOC);
+
+  // Toggle show/hide when the hamburger icon is clicked
+  menuIcon.addEventListener("click", function(event) {
+    event.stopPropagation(); // prevent click from bubbling to document
+    tocDropdown.style.display = (tocDropdown.style.display === "block") ? "none" : "block";
+  });
+
+  // Hide dropdown if clicking anywhere outside it
+  document.addEventListener("click", function(event) {
+    // If click is outside both the TOC and the icon
+    if (!tocDropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+      tocDropdown.style.display = "none";
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="assets/custom.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row"><div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#welcome" id="toc-welcome">Welcome</a></li>
+<li><a href="preliminaries.html#preliminaries" id="toc-preliminaries">Preliminaries</a></li>
+<li><a href="introduction.html#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="federal-rental-assistance.html#federal-rental-assistance" id="toc-federal-rental-assistance"><span class="toc-section-number">2</span> Federal Rental Assistance</a></li>
+</ul>
+</div>
+</div></div>
+<div class="row"><div class="col-sm-12">
+<div id="federal-rental-assistance" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Federal Rental Assistance</h1>
+<div id="lecture-preview-1" class="section level2 unnumbered">
+<h2>Lecture Preview</h2>
+<div id="learning-objectives-2" class="section level3 unnumbered">
+<h3>Learning Objectives</h3>
+<p>After this week, students will be able to:</p>
+<ul>
+<li>Test</li>
+</ul>
+</div>
+<div id="readings-2" class="section level3 unnumbered">
+<h3>Readings</h3>
+<p>Normally, I require readings that in some way complement the core topic of the lecture. Before lecture, it’s not always obvious how the reading relates to the core topic. One reason I provide guiding questions, then, is to help focus your reading and to draw attention to specific parts of the text.</p>
+<p>This week, I really want you to read everything very closely. For this reason, I’m a little tempted not to provide questions because I don’t want you to home in on certain parts of the texts at the expense of others. I decided it would be helpful to have offer some guidance on reading the paper and some guiding questions, but just keep in mind that I want you to do a close read.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Chetty et al, “The Effects of Exposure to Better Neighborhoods on Children”</strong>
+<ul>
+<li>Some tips on reading an Economics paper:
+<ul>
+<li>Start with the Abstract.</li>
+<li>Then, read the Introduction very carefully. The nice thing about Econ papers is that the Introduction is usually a completely self-contained summary of the paper. It also helps alert you to what the author thinks are the most important parts of the paper.</li>
+<li>Next, I’d go through the tables and figures in order. Together, these usually convey the argument the authors are trying to make.</li>
+<li>Then, I’d go back and read the rest of the paper – the Background, Data, Analysis/Results, and any other sections (in this paper, they have a section on reconciling findings with earlier work, and a cost-benefit analysis)</li>
+</ul></li>
+<li>Are there parts of the paper you really struggled with? Take a note and let’s talk about it in class!</li>
+</ul></li>
+</ol>
+<ul>
+<li>Some guiding questions:
+<ul>
+<li>What was the Moving to Opportunity experiment? What were its goals? How was it designed?</li>
+<li>What are the treatment and control groups?</li>
+<li>How do they analyze impacts of the program?</li>
+<li>Do you think their design allows them to reliably determine the causal effect of the program?</li>
+<li>What outcomes do they look at?</li>
+<li>What are the main results? What do you find most interesting? What else do you think they could’ve looked at?</li>
+<li>They find heterogeneity in effects based on some characteristic of the children. What is the characteristic? Why do you think this heterogeneity might exist?</li>
+<li>What are the results of the cost-benefit analysis? What are the policy implications?</li>
+<li>Do you agree or disagree with their assessment. Why?</li>
+</ul></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Chetty et al, “Non-Technical Summary</strong>
+<ul>
+<li></li>
+</ul></li>
+<li><strong>“Overview of the Creating Moves to Opportunity Program in Seattle and King County”</strong>
+<ul>
+<li>The CMTO program was created following the results of the original Chetty at al study. How do you think the findings from the paper informed the design of this program?</li>
+</ul></li>
+</ol>
+<p>The lecture is partly built on Schwartz, Ch 8. I encourage you to scan this chapter.</p>
+</div>
+<div id="interactive-exercise" class="section level3 unnumbered">
+<h3>Interactive Exercise</h3>
+<div id="is-public-housing-inefficient" class="section level4 unnumbered">
+<h4>Is public housing inefficient?</h4>
+
+<link href="https://kineticgraphs.org/css/kg.0.2.7.css" rel="stylesheet" type="text/css">
+<script src="https://kineticgraphs.org/js/kg.0.2.7.js"></script>  
+<div id="chart-area" style="max-width: 87.5%;">
+<div class="kg-container">
+
+schema: EconSchema
+version: 1
+
+params:
+  - name: budget
+    value: 1000
+  - name: alpha
+    value: 0.3334
+  - name: ph
+    value: 333
+    min: 333
+    max: 1500
+    round: 1
+calcs:
+  x0: params.alpha*1000
+  y0: (1-params.alpha)*1000
+  U_new: pow(params.ph, params.alpha) * pow(700, 1 - params.alpha)
+  kappa: pow(params.alpha, params.alpha) * pow(1 - params.alpha, 1 - params.alpha)
+  newbudget: calcs.U_new / calcs.kappa
+  x_tan: params.alpha * calcs.newbudget
+  y_tan: (1 - params.alpha) * calcs.newbudget
+colors:
+  ic: "'#32006e'"
+  fixed: "'#b7a57a'"
+  bl: "'#85754d'"
+layout:
+  OneGraphPlusSidebar:
+    graph:
+      xAxis:
+        title: Housing
+        orient: bottom
+        min: 0
+        max: 2050
+      yAxis:
+        title: Other Goods
+        orient: left
+        min: 0
+        max: 2050
+      objects:
+        - EconBudgetLine:
+            p1: 1
+            p2: 1
+            m: params.budget
+            color: bl
+            label: {text:}
+            lineStyle: dotted
+        - EconBudgetLine:
+            p1: 1
+            p2: 1
+            m: params.budget
+            color: bl
+            label: {text:}
+            lineStyle: solid
+            show:
+              (params.ph<334)
+        - EconBudgetLine:
+            p1: 1
+            p2: 1
+            m: calcs.newbudget
+            color: bl
+            label: {text:}
+            lineStyle: solid
+            show:
+              (params.ph>333)
+        - Point:
+            coordinates:
+              - calcs.x_tan
+              - calcs.y_tan
+            droplines:
+              horizontal: "`${calcs.y_tan.toFixed(0)}`"
+              vertical: "`${calcs.x_tan.toFixed(0)}`"
+            label:
+              text: \text{Optimal Bundle Under Cash Transfer}
+            color: ic
+            show:
+              (params.ph>333)
+        - EconBundle:
+            color: ic
+            utilityFunction:
+              CobbDouglas:
+                alpha: params.alpha
+            indifferenceCurve:
+              color: ic
+              label: none
+              lineStyle: dotted
+            coordinates:
+            - calcs.x0
+            - calcs.y0
+            label:
+            droplines:
+              horizontal: "`${calcs.y0.toFixed(0)}`"
+              vertical: "`${calcs.x0.toFixed(0)}`"
+            show:
+              (params.ph>333)
+        - EconBundle:
+            color: ic
+            utilityFunction:
+              CobbDouglas:
+                alpha: params.alpha
+            indifferenceCurve:
+              color: ic
+              label: none
+            coordinates:
+            - calcs.x0
+            - calcs.y0
+            label:
+            droplines:
+              horizontal: "`${calcs.y0.toFixed(0)}`"
+              vertical: "`${calcs.x0.toFixed(0)}`"
+            show:
+              (params.ph<334)
+        - EconBundle:
+            color: ic
+            utilityFunction:
+              CobbDouglas:
+                alpha: params.alpha
+            indifferenceCurve:
+              color: ic
+              label: none
+            coordinates:
+            - params.ph
+            - 700
+            label:
+              text: \text{Optimal Bundle with PH}
+            droplines:
+              vertical: "`${params.ph.toFixed(0)}`"
+              horizontal: 700
+            show:
+              (params.ph>333)
+    sidebar:
+      controls:
+        - title: Public Housing vs Cash Transfer
+          sliders:
+            - param: ph
+              label: \text{Value of PH Unit}
+          divs:
+            - html: Suppose household earns 1,000 per month.
+            - html: Without a subsidy, they're going to try to rent a unit for 333/month and spend the rest of their income on other things. What if they're offered public housing?
+            - html: <b>Manipulate the value of a unit of public housing.</b>
+            - html: "`The government charges 30% of income for rent, or 300 for this household, leaving them with 700 for everything else. So the subsidy value is ${(params.ph - 300).toFixed(0)}`"
+              show: (params.ph>333)
+            - html: "`But note that they would be equally happy with ${calcs.x_tan.toFixed(0)} worth of housing and ${calcs.y_tan.toFixed(0)} of everything else, which could be achieved with a cash transfer of ${calcs.newbudget.toFixed(0)-params.budget.toFixed(0)}`"
+              show: (params.ph>333)
+</div>
+</div>
+
+<p>(Adapted from O’Sullivan, p.388)</p>
+</div>
+<div id="what-are-the-effects-of-public-housing-and-vouchers-on-unsubsidized-market" class="section level4 unnumbered">
+<h4>What are the effects of public housing and vouchers on unsubsidized market?</h4>
+
+<link href="https://kineticgraphs.org/css/kg.0.2.7.css" rel="stylesheet" type="text/css">
+<script src="https://kineticgraphs.org/js/kg.0.2.7.js"></script>  
+<div id="chart-area" style="max-width: 87.5%;">
+<div class="kg-container">
+
+schema: EconSchema
+version: 1
+params:
+  - name: ph
+    value: 0
+    min: 0
+    max: 100
+    round: 1
+  - name: hcv
+    value: 0
+    min: 0
+    max: 100
+    round: 1
+calcs:
+colors:
+  demand: "'#32006e'"
+  fixed: "'#b7a57a'"
+  supply: "'#85754d'"
+layout:
+  OneGraphPlusSidebar:
+    graph:
+      xAxis:
+        title: Quantity ($Q$)
+        orient: bottom
+        min: 0
+        max: 150
+        ticks: 0
+      yAxis:
+        title: Price ($P$)
+        orient: left
+        min: 0
+        max: 150
+        ticks: 0
+      objects:
+      - EconLinearEquilibrium:
+          demand:
+            xIntercept: 120
+            invSlope: -1
+            lineStyle: dotted
+            stroke: demand
+          supply:
+            slope: 1
+            lineStyle: dotted
+          equilibrium:
+            color: fixed
+            droplines:
+              vertical: Q_1
+              horizontal: P_1
+      - EconLinearEquilibrium:
+          demand:
+            xIntercept: 120 + params.hcv
+            invSlope: -1
+            lineStyle: solid
+            stroke: demand
+          supply:
+            yIntercept: 0-params.ph
+            slope: 1
+            lineStyle: solid
+          equilibrium:
+            color: fixed
+            droplines:
+              vertical: Q_2
+              horizontal: P_2
+    sidebar:
+      controls:
+        - title: Effect of different government subsidies
+          sliders:
+            - param: ph
+              label: \text{Public Housing Units}
+              showNumber: false
+            - param: hcv
+              label: \text{Value of Vouchers}
+              showNumber: false
+          divs:
+            - html: Consider supply and demand in the low-income rental market.
+            - html: What happens if the government either builds more public housing units or increases the value of housing vouchers?
+            - html: <b>Simulate an increase in public housing units or the value of vouchers.</b>
+            - html: When the number of public housing unit increases, it increases supply, putting downward pressure on rents. (You could also model this as reducing demand in the private rental market, which would lead to an equivalent result.)
+              show: (params.ph>0)
+            - html: When the government increases the subsidy value of the voucher, people are willing to pay more for housing, putting upward pressure on rents.
+              show: (params.hcv>0)
+</div>
+</div>
+
+</div>
+<div id="how-does-new-development-affect-prices" class="section level4 unnumbered">
+<h4>How does new development affect prices?</h4>
+
+<link href="https://kineticgraphs.org/css/kg.0.2.7.css" rel="stylesheet" type="text/css">
+<script src="https://kineticgraphs.org/js/kg.0.2.7.js"></script>  
+<div id="chart-area" style="max-width: 87.5%;">
+<div class="kg-container">
+
+schema: EconSchema
+version: 1
+params:
+  - name: demandShift
+    value: 0
+    min: -50
+    max: 50
+    round: 1
+calcs:
+colors:
+  demand: "'#32006e'"
+  fixed: "'#b7a57a'"
+  supply: "'#85754d'"
+layout:
+  OneGraphPlusSidebar:
+    graph:
+      xAxis:
+        title: Quantity ($Q$)
+        orient: bottom
+        min: 0
+        max: 150
+        ticks: 0
+      yAxis:
+        title: Price ($P$)
+        orient: left
+        min: 0
+        max: 150
+        ticks: 0
+      objects:
+      - EconLinearEquilibrium:
+          demand:
+            xIntercept: 120
+            invSlope: -1
+            lineStyle: dotted
+            stroke: demand
+          supply:
+            slope: 1
+            lineStyle: dotted
+          equilibrium:
+            color: fixed
+            droplines:
+              vertical: Q_1
+              horizontal: P_1
+      - EconLinearEquilibrium:
+          demand:
+            name: newDemand
+            xIntercept: 120 + params.demandShift
+            invSlope: -1
+            lineStyle: solid
+            stroke: demand
+            drag:
+              - horizontal: demandShift
+          supply:
+            yIntercept: -30
+            slope: 1
+            lineStyle: solid
+          equilibrium:
+            color: fixed
+            droplines:
+              vertical: Q_2
+              horizontal: P_2
+      - Arrow:
+          begin: [100, 95]
+          end: [120, 95]
+          color: supply
+    sidebar:
+      controls:
+        - title: Effect of government-subsidized developments
+          divs:
+            - html: Suppose the government builds public housing or funds a new LIHTC development. As discussed above, this will shift supply up and drive prices down. 
+            - html: However, in response to the new development, demand for housing in the neighborhood may go up or down.
+            - html: <b>Simulate a demand shock by dragging the demand curve to the right or left</b>
+            - html: When demand increases (e.g., the new development brings other new amenities), prices can increase.
+              show: (params.demandShift>0)
+            - html: When demand decreases in response to the regulation (e.g., if development brings negative externalities, like crime or congestion), prices can fall.
+              show: (params.demandShift<0)
+</div>
+</div>
+
+</div>
+</div>
+<div id="design-and-implementation" class="section level3" number="2.0.1">
+<h3><span class="header-section-number">2.0.1</span> Design and Implementation</h3>
+</div>
+</div>
+<div id="the-low-income-housing-tax-credit" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> The Low-Income Housing Tax Credit</h2>
+<div id="overview" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Overview</h3>
+</div>
+<div id="historical-and-political-context" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Historical and Political Context</h3>
+</div>
+<div id="design-and-implementation-1" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Design and Implementation</h3>
+</div>
+</div>
+<div id="empirical-evidence" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Empirical Evidence</h2>
+</div>
+<div id="discussion" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Discussion</h2>
+<p>Something about comparing/contrasting the three programs on efficiency, potential spillovers, drawbacks, etc</p>
+
+</div>
+</div>
+<div class="custom-nav"><div class="nav-left"><a class="prev-link" href="introduction.html">← Introduction</a></div><div class="nav-right"></div></div>
+</div></div>
