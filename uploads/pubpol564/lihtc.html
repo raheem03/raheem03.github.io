@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Preliminaries | Housing and Social Policy" />
+<meta property="og:title" content="Chapter 4 LIHTC | Housing and Social Policy" />
 <meta property="og:type" content="book" />
 
 <meta property="og:description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
@@ -19,7 +19,7 @@ taught by Raheem Chaudhry at the University of Washington Evans School.</p>" />
 <meta name="description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
 taught by Raheem Chaudhry at the University of Washington Evans School.</p>">
 
-<title>Preliminaries | Housing and Social Policy</title>
+<title>Chapter 4 LIHTC | Housing and Social Policy</title>
 
 <link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
@@ -241,41 +241,142 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="preliminaries.html#preliminaries" id="toc-preliminaries">Preliminaries</a></li>
 <li><a href="introduction.html#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction</a></li>
 <li><a href="history-public-housing.html#history-public-housing" id="toc-history-public-housing"><span class="toc-section-number">2</span> History; Public Housing</a></li>
-<li><a href="federal-rental-assistance-i-public-housing-vouchers.html#federal-rental-assistance-i-public-housing-vouchers" id="toc-federal-rental-assistance-i-public-housing-vouchers"><span class="toc-section-number">3</span> Federal Rental Assistance I (Public Housing; Vouchers)</a></li>
-<li><a href="federal-rental-assistance-ii-lihtc.html#federal-rental-assistance-ii-lihtc" id="toc-federal-rental-assistance-ii-lihtc"><span class="toc-section-number">4</span> Federal Rental Assistance II (LIHTC)</a></li>
+<li><a href="federal-rental-assistance.html#federal-rental-assistance" id="toc-federal-rental-assistance"><span class="toc-section-number">3</span> Federal Rental Assistance</a></li>
+<li><a href="lihtc.html#lihtc" id="toc-lihtc"><span class="toc-section-number">4</span> LIHTC</a></li>
 <li><a href="in-class-exercises.html#in-class-exercises" id="toc-in-class-exercises">In-Class Exercises</a></li>
 </ul>
 </div>
 </div></div>
 <div class="row"><div class="col-sm-12">
-<div id="preliminaries" class="section level1 unnumbered">
-<h1>Preliminaries</h1>
-<p>Please complete this section by the third week of class.</p>
-<div id="learning-objectives" class="section level3 unnumbered">
+<div id="lihtc" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> LIHTC</h1>
+<div id="lecture-preview-3" class="section level2 unnumbered">
+<h2>Lecture Preview</h2>
+<div id="learning-objectives-4" class="section level3 unnumbered">
 <h3>Learning Objectives</h3>
 <p>After this week, students will be able to:</p>
-<ul>
-<li>Apply basic concepts from introductory microeconomics – supply and demand, elasticity, and market equilibrium – to analyze public policy</li>
-<li>Articulate the importance of concepts from the Quant sequence to evaluating public policy</li>
-<li>Interpret the results of regression analysis</li>
-<li>Identify different strategies – and their underlying assumptions – to conduct causal inference</li>
-</ul>
 </div>
-<div id="readings" class="section level3 unnumbered">
+<div id="readings-4" class="section level3 unnumbered">
 <h3>Readings</h3>
-<p>This week, you have one reading and two recordings to watch:</p>
 <ol style="list-style-type: decimal">
-<li>Watch the review of Quant</li>
-<li>Watch the review of Micro</li>
-<li><strong>Lee Friedman, <em>The Microeconomics of Public Policy Analysis</em>, Ch 1.</strong> In this course, I will often use simple microeconomic concepts to motivate or analyze housing policies. I do this because microeconomics provides one rigorous framework by which to analyze public policy. This reading provides an accessible way to understand why this might be useful.<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> Three important steps of the policy process are policy design, implementation, and evaluation. Your core courses of microeconomics, public management, and policy analysis each play a major role in each of these steps, respectively. In this course, we will spend substantial time on each of these steps and will, therefore, bring in concepts from the core. We’re reading about microeconomics, however, because I find I have to spend less time justifying concepts from the other two to students!</span>
+<li><strong>Chetty et al, “The Effects of Exposure to Better Neighborhoods on Children”</strong>
 <ul>
-<li>Why are economic models useful for studying public policy?</li>
-<li>What criteria do we tend to use when studying public policy using a microeconomic lens?</li>
-<li>What are some limitations of using economic models to study and design policy?</li>
+<li>Some tips on reading an Economics paper at your stage:
+<ul>
+<li>Start with the Abstract.</li>
+<li>Then, read the Introduction very carefully. The nice thing about Econ papers is that the Introduction is usually a completely self-contained summary of the paper. It also helps alert you to what the author thinks are the most important parts of the paper.</li>
+<li>Next, I’d go through the tables and figures in order. Together, these usually convey the argument the authors are trying to make.</li>
+<li>Then, I’d go back and read the rest of the paper – the Background, Data, Analysis/Results, and any other sections (in this paper, they have a section on reconciling findings with earlier work, and a cost-benefit analysis)</li>
+</ul></li>
+<li>Are there parts of the paper you really struggled with? Take a note and let’s talk about it in class!</li>
+<li>Some guiding questions:
+<ul>
+<li>What was the Moving to Opportunity experiment? What were its goals? How was it designed?</li>
+<li>What are the treatment and control groups?</li>
+<li>How do they analyze impacts of the program?</li>
+<li>Do you think their design allows them to reliably determine the causal effect of the program?</li>
+<li>What outcomes do they look at?</li>
+<li>What are the main results? What do you find most interesting? What else do you think they could’ve looked at?</li>
+<li>They find heterogeneity in effects based on some characteristic of the children. What is the characteristic? Why do you think this heterogeneity might exist?</li>
+<li>What are the results of the cost-benefit analysis? What are the policy implications?</li>
+<li>Do you agree or disagree with their assessment. Why?</li>
+</ul></li>
 </ul></li>
 </ol>
+</div>
+<div id="interactive-exercise-1" class="section level3 unnumbered">
+<h3>Interactive Exercise</h3>
+<div id="how-does-new-development-affect-prices" class="section level4 unnumbered">
+<h4>How does new development affect prices?</h4>
+
+<link href="https://kineticgraphs.org/css/kg.0.2.7.css" rel="stylesheet" type="text/css">
+<script src="https://kineticgraphs.org/js/kg.0.2.7.js"></script>  
+<div id="chart-area" style="max-width: 87.5%;">
+<div class="kg-container">
+
+schema: EconSchema
+version: 1
+params:
+  - name: demandShift
+    value: 0
+    min: -50
+    max: 50
+    round: 1
+calcs:
+colors:
+  demand: "'#32006e'"
+  fixed: "'#b7a57a'"
+  supply: "'#85754d'"
+layout:
+  OneGraphPlusSidebar:
+    graph:
+      xAxis:
+        title: Quantity ($Q$)
+        orient: bottom
+        min: 0
+        max: 150
+        ticks: 0
+      yAxis:
+        title: Price ($P$)
+        orient: left
+        min: 0
+        max: 150
+        ticks: 0
+      objects:
+      - EconLinearEquilibrium:
+          demand:
+            xIntercept: 120
+            invSlope: -1
+            lineStyle: dotted
+            stroke: demand
+          supply:
+            slope: 1
+            lineStyle: dotted
+          equilibrium:
+            color: fixed
+            droplines:
+              vertical: Q_1
+              horizontal: P_1
+      - EconLinearEquilibrium:
+          demand:
+            name: newDemand
+            xIntercept: 120 + params.demandShift
+            invSlope: -1
+            lineStyle: solid
+            stroke: demand
+            drag:
+              - horizontal: demandShift
+          supply:
+            yIntercept: -30
+            slope: 1
+            lineStyle: solid
+          equilibrium:
+            color: fixed
+            droplines:
+              vertical: Q_2
+              horizontal: P_2
+      - Arrow:
+          begin: [100, 95]
+          end: [120, 95]
+          color: supply
+    sidebar:
+      controls:
+        - title: Effect of government-subsidized developments
+          divs:
+            - html: Suppose the government builds public housing or funds a new LIHTC development. As discussed above, this will shift supply up and drive prices down. 
+            - html: However, in response to the new development, demand for housing in the neighborhood may go up or down.
+            - html: <b>Simulate a demand shock by dragging the demand curve to the right or left</b>
+            - html: When demand increases (e.g., the new development brings other new amenities), prices can increase.
+              show: (params.demandShift>0)
+            - html: When demand decreases in response to the regulation (e.g., if development brings negative externalities, like crime or congestion), prices can fall.
+              show: (params.demandShift<0)
+</div>
+</div>
+
 
 </div>
 </div>
-<div class="custom-nav"><div class="nav-left"><a class="prev-link" href="index.html">← Welcome</a></div><div class="nav-right"><a class="next-link" href="introduction.html">Introduction →</a></div></div>
+</div>
+</div>
+<div class="custom-nav"><div class="nav-left"><a class="prev-link" href="federal-rental-assistance.html">← Federal Rental Assistance</a></div><div class="nav-right"><a class="next-link" href="in-class-exercises.html">In-Class Exercises →</a></div></div>
 </div></div>
