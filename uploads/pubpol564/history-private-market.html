@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="In-Class Exercises | Housing and Social Policy" />
+<meta property="og:title" content="Chapter 2 History; Private Market | Housing and Social Policy" />
 <meta property="og:type" content="book" />
 
 <meta property="og:description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
@@ -19,7 +19,7 @@ taught by Raheem Chaudhry at the University of Washington Evans School.</p>" />
 <meta name="description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
 taught by Raheem Chaudhry at the University of Washington Evans School.</p>">
 
-<title>In-Class Exercises | Housing and Social Policy</title>
+<title>Chapter 2 History; Private Market | Housing and Social Policy</title>
 
 <link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
@@ -248,218 +248,132 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div></div>
 <div class="row"><div class="col-sm-12">
-<div id="in-class-exercises" class="section level1 unnumbered">
-<h1>In-Class Exercises</h1>
-
-
-<link rel="stylesheet" href="assets/you-draw-it-master/dist/css/style.css">
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="assets/you-draw-it-master/dist/js/youdrawit.js"></script>
-<!--
-<div class="gate-msg">🔒 This page will unlock on 10/7/2025 at 2:30 PM PT.</div>
-<div class="gated" data-unlock-utc="2025-10-07T21:30:00Z">
--->
-<div id="chart-area" style="max-width: 55%;">
-<div id="chart-container"></div>
-
-<script>
-  (function() {
-    function unlockAll() {
-      document.querySelectorAll(".gated").forEach(function(el){
-        el.style.display = "";
-        el.classList.remove("gated");
-      });
-      document.querySelectorAll(".gate-msg").forEach(function(el){
-        el.remove();
-      });
-      console.log("[gate] unlocked");
-    }
-
-    // URL override
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("unlock") === "1") {
-      unlockAll();
-      return; // skip time check entirely
-    }
-
-    // Otherwise, time-based gate
-    function checkUnlock() {
-      var now = new Date();
-      document.querySelectorAll("[data-unlock-utc]").forEach(function(el) {
-        var t = el.getAttribute("data-unlock-utc");
-        var unlockAt = new Date(t);
-        if (isNaN(unlockAt)) return;
-        if (now >= unlockAt) {
-          el.classList.remove("gated");
-          var ph = el.previousElementSibling;
-          if (ph && ph.classList.contains("gate-msg")) ph.remove();
-        }
-      });
-    }
-
-    // Ensure DOM is ready (safe even if already loaded)
-    document.addEventListener("DOMContentLoaded", function () {
-      checkUnlock();
-      setInterval(checkUnlock, 30 * 1000);
-    });
-  })();
-  
-  var questions = [];
-  var question = {};
-
-  var globals = { 
-    default: "en",
-    showScore: false,
-    resultButtonTooltip: false,
-    resultButtonText: "Show Me How I Did"
-  };
-
-  question = { 
-    heading: "Plot the homeownership rate over time",
-    data: [
-      {1900: 46.5},
-      {1910: 45.9},
-      {1920: 45.6},
-      {1930: 47.8},
-      {1940: 43.6},
-      {1950: 55.0},
-      {1960: 61.9},
-      {1970: 62.9}, 
-      {1980: 64.4}, 
-      {1990: 64.2}, 
-      {2000: 66.2}, 
-      {2010: 65.4}, 
-      {2024: 65.3},
-    ],
-    precision:0,
-    yAxisMin:0,
-    yAxisMax:100,
-    lastPointShownAt:1900,
-  };
-  questions.push(question);
-  
-  question = { 
-    heading: "Plot the homeownership rate by race (CY 2023)",
-    chartType: "barChart",
-    data: [
-      {"White, Non-Hispanic": 73.2},
-      {"Black, Non-Hispanic": 45.0},
-      {"Asian, Non-Hispanic": 63.7},
-      {"Hispanic": 51.0},
-      {"Other, Non-Hispanic": 57.0},
-    ],
-    defaultValues: 50,
-    precision:0,
-    yAxisMin:0,
-    yAxisMax:100,
-  };
-  questions.push(question);
-
-  question = { 
-    heading: "Plot the household income distribution in the US (CY 2023)",
-    xTickEvery: 50,
-    showPoints: false,
-    data: [
-      {"0": 5.34},
-      {"10000": 6.54},
-      {"20000": 6.72},
-      {"30000": 7.09},
-      {"40000": 6.99},
-      {"50000": 6.75},
-      {"60000": 6.38},
-      {"70000": 5.8},
-      {"80000": 5.34},
-      {"90000": 4.69},
-      {"100000": 4.59},
-      {"110000": 3.63},
-      {"120000": 3.48},
-      {"130000": 2.95},
-      {"140000": 2.55},
-      {"150000": 2.39},
-      {"160000": 1.98},
-      {"170000": 1.72},
-      {"180000": 1.55},
-      {"190000": 1.28},
-      {"200000": 1.33},
-      {"210000": 1},
-      {"220000": 0.9},
-      {"230000": 0.75},
-      {"240000": 0.68},
-      {"250000": 0.69},
-      {"260000": 0.53},
-      {"270000": 0.48},
-      {"280000": 0.4},
-      {"290000": 0.35},
-      {"300000": 0.41},
-      {"310000": 0.29},
-      {"320000": 0.28},
-      {"330000": 0.25},
-      {"340000": 0.21},
-      {"350000": 0.23},
-      {"360000": 0.18},
-      {"370000": 0.17},
-      {"380000": 0.16},
-      {"390000": 0.13},
-      {"400000": 0.16},
-      {"410000": 0.12},
-      {"420000": 0.11},
-      {"430000": 0.1},
-      {"440000": 0.1},
-      {"450000": 0.1},
-      {"460000": 0.08},
-      {"470000": 0.08},
-      {"480000": 0.09},
-      {"490000": 0.08},
-      {"500000": 1.81},
-    ],
-    xTickEvery: 5,
-    precision:0,
-    lastPointShownAt:"0",
-    yAxisMin:0,
-  };
-  questions.push(question);
-  
-  question = { 
-    heading: "Plot the number of homeless individuals over time",
-    data: [
-      {2007: 647258},
-      {2008: 639784},
-      {2009: 630227},
-      {2010: 637077},
-      {2011: 623788},
-      {2012: 621553},
-      {2013: 590364},
-      {2014: 576450},
-      {2015: 564708},
-      {2016: 549928},
-      {2017: 550996},
-      {2018: 552830},
-      {2019: 567715},
-      {2020: 580466},
-      {2022: 582462},
-      {2023: 653104},
-      {2024: 771480},
-    ],
-    precision:0,
-    lastPointShownAt:2007,
-    yAxisMin:0,
-  };
-  questions.push(question);
-  
-  var myChart = youdrawit
-    .chart()
-    .globals(globals)
-    .questions(questions);
-
-  d3.select("#chart-container")
-    .append("div")
-    .attr("class", "chart")
-    .call(myChart);
-</script>
+<div id="history-private-market" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> History; Private Market</h1>
+<div id="lecture-preview-1" class="section level2 unnumbered">
+<h2>Lecture Preview</h2>
+<div id="learning-objectives-2" class="section level3 unnumbered">
+<h3>Learning Objectives</h3>
+<p>After this week, students will be able to:</p>
+<ul>
+<li>Describe how US housing policy has developed over time, from the New Deal to the present</li>
+<li>Identify major housing policies and policy shifts in the history of US housing policy</li>
+<li>Explain reasons for government involvement in housing and articulate key tensions in debates around housing policy</li>
+<li>Describe the history, design, and key features of the public housing program</li>
+<li>Apply tools from microeconomics to consider effects of the program’s design</li>
+<li>Apply tools from quantitative methods to assess the empirical evidence on the impacts of the public housing program</li>
+</ul>
 </div>
+<div id="readings-2" class="section level3 unnumbered">
+<h3>Readings</h3>
+<p>Here are the videos and readings for the week, along with some guiding questions:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Watch: Adam Ruins Everything, “The Disturbing History of the Suburbs”</strong>
+<ul>
+<li>The video argues that federal housing policy actively encouraged racial segregation. Do you buy this narrative?</li>
+<li>If the video’s assessment is correct, would it change how you think about what government’s role is in promoting racial integragtion today?</li>
+</ul></li>
+<li><strong>Sampson, “Move Up or Out? Confronting Compounded Deprivation”</strong>
+<ul>
+<li>What is the difference between place-based and people-based policies?</li>
+<li>What does Sampson identify as the main pros/cons of each approach?</li>
+</ul></li>
+<li><strong>Rothstein, <em>The Color of Law</em>, Ch 2</strong>
+<ul>
+<li>What role did the government play in segregating public housing?</li>
+<li>There were debates about whether public housing should target a broad swath of American society vs very low-income renters. Ultimately, what types of families did the program target?</li>
+<li>How might the government’s decisions (to integrate vs segregate, to target middle-class vs low-income) have contributed to the perception and evolution of the program over the 20th century?</li>
+</ul></li>
+<li><strong>Popkin, “Lessons from 40 Years of Public Housing Policy”</strong>
+<ul>
+<li>What are some causes of the public housing crisis?</li>
+<li>How would you characterize the shifts in public housing policy since the 1980s?</li>
+<li>Does Popkin have any recommendations on how low-income rental assistance should evolve moving forward?</li>
+</ul></li>
+</ol>
+<p>The lecture is partly built on von Hoffman’s “History lessons for today’s housing policy: the politics of low-income housing” and Schwartz, Ch 6. I encourage you to scan both of these readings.</p>
 </div>
+<div id="test-your-knowledge-1" class="section level3 unnumbered">
+<h3>Test Your Knowledge</h3>
+
+  <div id="myQuizContainer"  style="max-width: 55%;"></div>
+  <!-- Load your engine -->
+  <link rel="stylesheet" href="assets/flashbackEngine.css">
+  <script src="assets/flashbackEngine.js"></script>
+
+  <!-- Then define your data and call the function -->
+  <script>
+      const customQuizData = [
+        {
+          id: 1,
+          text: "Start of Great Migration of Black Americans from South to North",
+          year: "~1910",
+          order: 1,
+        },
+        {
+          id: 2,
+          text: "The US enters WWI; Start of Russian Revolution",
+          year: "1917",
+          order: 2,
+        },
+        {
+          id: 3,
+          text: "Red Summer, period with intense racial violence against Black Americans in dozens of American cities, including Chicago and Tulsa",
+          year: "1919",
+          order: 3,
+        },
+        {
+          id: 4,
+          text: "US faces Great Depression",
+          year: "1929-1939",
+          order: 4,
+        },
+        {
+          id: 5,
+          text: "The US enters WWII",
+          year: "1941",
+          order: 5,
+        },
+        {
+          id: 6,
+          text: "President Dwight D Eisenhower signs the National Interstate and Defense Highways Act, paving the way for the development of the Interstate Highway System",
+          year: "1956",
+          order: 6,
+        },
+        {
+          id: 7,
+          text: "President Lyndon B Johnson signs the Voting Rights Act, prohibiting racial discrimination in voting",
+          year: "1965",
+          order: 7,
+        },
+        {
+          id: 8,
+          text: "Unofficial end of Great Migration of Black Americans from South to North",
+          year: "~1970",
+          order: 8,
+        },
+        {
+          id: 9,
+          text: "Fall of Berlin Wall",
+          year: "1989",
+          order: 9,
+        },
+        {
+          id: 10,
+          text: "President Bill Clinton signs the the Personal Responsibility and Work Opportunity Reconciliation Act (PRWORA), major bill reforming welfare",
+          year: "1996",
+          order: 1996,
+        },
+      ];
+
+    // Call the engine function
+    initFlashbackQuiz("myQuizContainer", customQuizData);
+  </script>
+  </div>
 
 
 </div>
-<div class="custom-nav"><div class="nav-left"><a class="prev-link" href="federal-rental-assistance-ii-lihtc.html">← Federal Rental Assistance II (LIHTC)</a></div><div class="nav-right"></div></div>
+</div>
+</div>
+<div class="custom-nav"><div class="nav-left"><a class="prev-link" href="introduction.html">← Introduction</a></div><div class="nav-right"><a class="next-link" href="federal-rental-assistance-i-public-housing-vouchers.html">Federal Rental Assistance I (Public Housing; Vouchers) →</a></div></div>
 </div></div>
