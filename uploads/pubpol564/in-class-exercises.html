@@ -252,219 +252,396 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="row"><div class="col-sm-12">
 <div id="in-class-exercises" class="section level1 unnumbered">
 <h1>In-Class Exercises</h1>
+<div id="preview" class="section level2 unnumbered">
+<h2>Preview</h2>
+<p>Let’s think about the effects of land-use regulations. There’s a lot of ways to model these, but I’m going to start by thinking of land-use regulations as capping the number of units that developers can build. (This may seem strange, but consider minimum lot sizes, one of the most important land-use regulations. Suppose you’re a developer and you have 100,000 square feet on which to build. If the government imposes a minimum lot size of 5,000 square feet, you can build at most 20 units on that land.)</p>
 
+<link href="https://kineticgraphs.org/css/kg.0.2.7.css" rel="stylesheet" type="text/css">
+<script src="https://kineticgraphs.org/js/kg.0.2.7.js"></script>  
+<div id="chart-area" style="max-width: 87.5%;">
+<div class="kg-container">
 
-<link rel="stylesheet" href="assets/you-draw-it-master/dist/css/style.css">
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="assets/you-draw-it-master/dist/js/youdrawit.js"></script>
-<!--
-<div class="gate-msg">🔒 This page will unlock on 10/7/2025 at 2:30 PM PT.</div>
-<div class="gated" data-unlock-utc="2025-10-07T21:30:00Z">
--->
-<div id="chart-area" style="max-width: 55%;">
-<div id="chart-container"></div>
+schema: EconSchema
+version: 1
+params:
+  - name: demandShift
+    value: 0
+    min: -50
+    max: 50
+    round: 1
+  - name: q
+    value: 60
+  - name: qmax
+    value: 120
+    min: 10
+    max: 120
+    round: 2
+  - name: t
+    value: 1
+    min: 1
+    max: 2
+    round: 1
+calcs:
+  y_d0: (120-params.qmax)
+  y_s0: (params.qmax)
+  y_d1: (120-params.qmax + params.demandShift)
+  alpha_mls: (calcs.y_d0-params.qmax)
+colors:
+  demand: "'#32006e'"
+  fixed: "'#b7a57a'"
+  supply: "'#85754d'"
+layout:
+  OneGraphPlusSidebar:
+    graph:
+      xAxis:
+        title: Quantity ($Q$)
+        orient: bottom
+        min: 0
+        max: 150
+        ticks: 0
+      yAxis:
+        title: Price ($P$)
+        orient: left
+        min: 0
+        max: 150
+        ticks: 0
+      objects:
+      - Point:
+            coordinates: [params.qmax, calcs.y_d0]
+            color: demand
+            droplines:
+              vertical: Q_1
+              horizontal: P_1
+            show: (params.qmax < params.q)
+      - Point:
+            coordinates: [params.qmax, calcs.y_s0]
+            color: supply
+            show: (params.qmax < params.q)
+      - Point:
+            coordinates: [params.qmax, calcs.y_d1]
+            color: demand
+            droplines:
+              vertical: Q_2
+              horizontal: P_2
+            show: (params.t==2) && (params.qmax < params.q) && (calcs.y_d1 > calcs.y_s0)
+      - EconLinearDemand:
+            xIntercept: 120
+            invSlope: -1
+            lineStyle: solid
+            stroke: demand
+            show: (params.t==1)
+      - EconLinearEquilibrium:
+          demand:
+            xIntercept: 120
+            invSlope: -1
+            lineStyle: dotted
+            stroke: demand
+          supply:
+            slope: 1
+            lineStyle: solid
+          equilibrium:
+            color: fixed
+            droplines:
+              vertical: Q_0
+              horizontal: P_0
+      - EconLinearEquilibrium:
+          demand:
+            name: newDemand
+            xIntercept: 120 + params.demandShift
+            invSlope: -1
+            lineStyle: solid
+            stroke: demand
+            drag:
+              - horizontal: demandShift
+            show: (params.t==2) && (params.qmax < params.q)
+          supply:
+            slope: 1
+            lineStyle: solid
+          equilibrium:
+            color: fixed
+            droplines:
+              vertical: Q_2
+              horizontal: P_2
+            show: (params.t==2) && (params.qmax < params.q) && (calcs.y_d1 < calcs.y_s0)
+      - Line:
+          xIntercept: params.qmax
+          show: (params.qmax >= params.q)
+          color: red
+          lineStyle: dotted
+          label:
+            text: Q'
+            position: l
+            plainText: true
+            y: 140
+      - Line:
+          xIntercept: params.qmax
+          show: (params.qmax < params.q)
+          color: red
+          strokeWidth: 1
+          lineStyle: solid
+          label:
+            text: Q'
+            position: l
+            plainText: true
+            y: 140
 
-<script>
-  (function() {
-    function unlockAll() {
-      document.querySelectorAll(".gated").forEach(function(el){
-        el.style.display = "";
-        el.classList.remove("gated");
-      });
-      document.querySelectorAll(".gate-msg").forEach(function(el){
-        el.remove();
-      });
-      console.log("[gate] unlocked");
-    }
+    sidebar:
+      controls:
+        - title: Effect of Land-Use Regulations
+          sliders:
+            - param: t
+              label: \text{Time Period}
+            - param: qmax
+              label: \text{Max Quantity}
+              showNumber: false
+          divs:
+            - html: In time period 1, we start with no land-use regulations. The market clears with landlords supply $Q^*$ at $P^*$.
+              show: (params.t==1)
+            - html: <b>Impose a minimum lot size by dragging the slider to the right</b>
+              show: (params.t==1) && (params.qmax == 120)
+            - html: When a minimum lot size is imposed, landlords cannot supply more more than Q'.
+              show: (params.t==1) && (params.qmax < 120)
+            - html: When the maximum amount of housing allowed is greater than the equilibrium quanitity supplied, it is <i>non-binding</i>.
+              show: (params.t==1) && (params.qmax < 120) && (params.qmax >= params.q)
+            - html: When the maximum amount of housing allowed is less than the equilibrium quantity supplied, it is <i>binding</i>. At this quantity, landlords will supply less than what they would absent regulation, <i>reducing supply</i> and <i>raising prices</i>.
+              show: (params.t==1) && (params.qmax < 120) && (params.qmax < params.q)
+            - html: <b>Once the regulation is binding, move on to period 2.</b>
+              show: (params.t==1)
+            - html: The intensity of land-use regulations can affect demand. For example, strict land-use regulations can ensure less noise or congestion, which may increase demand. On the other hand, relaxing land-use regulations may increase density, which may lead to increased demand if this brings in more amenities, such as restaurants or parks.
+              show: (params.t==2)
+            - html: <b>Drag the demand curve to the right or left to explore what happens when demand increases or decreases in response to the regulation.</b>
+              show: (params.t==2)
+            - html: When demand increases in response to stricter regulation, prices can increase.
+              show: (params.t==2) && (params.demandShift>0)
+            - html: When demand decreases in response to the regulation, prices can fall. This is easiest to see in the converse situation. When land-use regulations relax, density increases. If that comes with positive amenities, prices can rise.
+              show: (params.t==2) && (params.demandShift<0)
+</div>
+</div>
 
-    // URL override
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("unlock") === "1") {
-      unlockAll();
-      return; // skip time check entirely
-    }
+</div>
+<div id="land-use-regulations" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Land-Use Regulations</h2>
 
-    // Otherwise, time-based gate
-    function checkUnlock() {
-      var now = new Date();
-      document.querySelectorAll("[data-unlock-utc]").forEach(function(el) {
-        var t = el.getAttribute("data-unlock-utc");
-        var unlockAt = new Date(t);
-        if (isNaN(unlockAt)) return;
-        if (now >= unlockAt) {
-          el.classList.remove("gated");
-          var ph = el.previousElementSibling;
-          if (ph && ph.classList.contains("gate-msg")) ph.remove();
-        }
-      });
-    }
+<link href="https://kineticgraphs.org/css/kg.0.2.7.css" rel="stylesheet" type="text/css">
+<script src="https://kineticgraphs.org/js/kg.0.2.7.js"></script>  
+<div id="chart-area" style="max-width: 87.5%;">
+<div class="kg-container">
 
-    // Ensure DOM is ready (safe even if already loaded)
-    document.addEventListener("DOMContentLoaded", function () {
-      checkUnlock();
-      setInterval(checkUnlock, 30 * 1000);
-    });
-  })();
-  
-  var questions = [];
-  var question = {};
-
-  var globals = { 
-    default: "en",
-    showScore: false,
-    resultButtonTooltip: false,
-    resultButtonText: "Show Me How I Did"
-  };
-
-  question = { 
-    heading: "Plot the homeownership rate over time",
-    data: [
-      {1900: 46.5},
-      {1910: 45.9},
-      {1920: 45.6},
-      {1930: 47.8},
-      {1940: 43.6},
-      {1950: 55.0},
-      {1960: 61.9},
-      {1970: 62.9}, 
-      {1980: 64.4}, 
-      {1990: 64.2}, 
-      {2000: 66.2}, 
-      {2010: 65.4}, 
-      {2024: 65.3},
-    ],
-    precision:0,
-    yAxisMin:0,
-    yAxisMax:100,
-    lastPointShownAt:1900,
-  };
-  questions.push(question);
-  
-  question = { 
-    heading: "Plot the homeownership rate by race (CY 2023)",
-    chartType: "barChart",
-    data: [
-      {"White, Non-Hispanic": 73.2},
-      {"Black, Non-Hispanic": 45.0},
-      {"Asian, Non-Hispanic": 63.7},
-      {"Hispanic": 51.0},
-      {"Other, Non-Hispanic": 57.0},
-    ],
-    defaultValues: 50,
-    precision:0,
-    yAxisMin:0,
-    yAxisMax:100,
-  };
-  questions.push(question);
-  
-  question = { 
-    heading: "What is the median sales price of a new home (2024 $, thousands of $)?",
-    data: [
-      {1990: 271.6},
-      {1991: 254.6},
-      {1992: 250.5},
-      {1993: 253.4},
-      {1994: 254.2},
-      {1995: 255.2},
-      {1996: 259.5},
-      {1997: 265.1},
-      {1998: 274.7},
-      {1999: 284.6},
-      {2000: 288.8},
-      {2001: 292.3},
-      {2002: 311},
-      {2003: 316.3},
-      {2004: 349.1},
-      {2005: 366.7},
-      {2006: 363.7},
-      {2007: 357},
-      {2008: 319.9},
-      {2009: 301.9},
-      {2010: 301.1},
-      {2011: 296.4},
-      {2012: 313.6},
-      {2013: 340.2},
-      {2014: 361.2},
-      {2015: 373.1},
-      {2016: 389.5},
-      {2017: 402.7},
-      {2018: 398.8},
-      {2019: 388.7},
-      {2020: 397.6},
-      {2021: 435.9},
-      {2022: 452.9},
-      {2023: 436},
-      {2024: 420.3},
-    ],
-    precision:0,
-    yAxisMin:150,
-    yAxisMax:500,
-    xTickEvery: 5,
-    lastPointShownAt:1990,
-  };
-  questions.push(question);
-  
-  question = { 
-    heading: "What is the median home price-to-income ratio?",
-    data: [
-      {1990: 3.1},
-      {1991: 3.2},
-      {1992: 3.2},
-      {1993: 3.2},
-      {1994: 3.2},
-      {1995: 3.1},
-      {1996: 3.1},
-      {1997: 3.2},
-      {1998: 3.2},
-      {1999: 3.2},
-      {2000: 3.4},
-      {2001: 3.6},
-      {2002: 3.9},
-      {2003: 4.2},
-      {2004: 4.6},
-      {2005: 5},
-      {2006: 4.8},
-      {2007: 4.5},
-      {2008: 3.9},
-      {2009: 3.6},
-      {2010: 3.7},
-      {2011: 3.5},
-      {2012: 3.5},
-      {2013: 3.9},
-      {2014: 4},
-      {2015: 4},
-      {2016: 4.1},
-      {2017: 4.1},
-      {2018: 4.2},
-      {2019: 4.1},
-      {2020: 4.4},
-      {2021: 4.9},
-      {2022: 5},
-      {2023: 4.8},
-      {2024: 5},
-    ],
-    precision:0,
-    yAxisMin:0,
-    yAxisMax:6,
-    xTickEvery: 5,
-    lastPointShownAt:1990,
-  };
-  questions.push(question);
-  
-  var myChart = youdrawit
-    .chart()
-    .globals(globals)
-    .questions(questions);
-
-  d3.select("#chart-container")
-    .append("div")
-    .attr("class", "chart")
-    .call(myChart);
-</script>
+schema: EconSchema
+version: 1
+params:
+  - name: tax
+    value: 0
+    min: 0
+    max: 50
+    round: 1
+calcs:
+colors:
+  demand: "'#32006e'"
+  fixed: "'#b7a57a'"
+  supply: "'#85754d'"
+layout:
+  OneGraphPlusSidebar:
+    graph:
+      xAxis:
+        title: Quantity ($Q$)
+        orient: bottom
+        min: 0
+        max: 150
+        ticks: 0
+      yAxis:
+        title: Price ($P$)
+        orient: left
+        min: 0
+        max: 150
+        ticks: 0
+      objects:
+      - EconLinearEquilibrium:
+          demand:
+            xIntercept: 120
+            invSlope: -1
+            lineStyle: dotted
+            stroke: dotted
+          supply:
+            slope: 1
+            lineStyle: dotted
+          equilibrium:
+            color: fixed
+            droplines:
+              vertical: Q_0
+              horizontal: P_0
+      - EconLinearEquilibrium:
+          demand:
+            xIntercept: 120
+            invSlope: -1
+            lineStyle: solid
+          supply:
+            yIntercept: params.tax
+            slope: 1
+            lineStyle: solid
+          equilibrium:
+            color: demand
+            droplines:
+              vertical: Q_1
+              horizontal: P_1
+          show: params.tax>0
+    sidebar:
+      controls:
+        - title: Effect of Land-Use Regulations
+          sliders:
+            - param: tax
+              label: \text{Tax}
+              showNumber: false
+          divs:
+            - html: Many land-use regulations can be modelled as a tax or cost to developers.
+            - html: <b>Impose a tax on developers by dragging the slider to the right</b>
+            - html: With a tax, developers want to charge more for each unit of housing.
+              show: (params.tax>0)
+            - html: In equilibrium, supply will fall and prices will increase
+              show: (params.tax>0)
 </div>
 </div>
 
 
+<link href="https://kineticgraphs.org/css/kg.0.2.7.css" rel="stylesheet" type="text/css">
+<script src="https://kineticgraphs.org/js/kg.0.2.7.js"></script>  
+<div id="chart-area" style="max-width: 87.5%;">
+<div class="kg-container">
+
+schema: EconSchema
+version: 1
+params:
+  - name: tax
+    value: 50
+    min: 0
+    max: 50
+    round: 1
+  - name: demandShift
+    value: 0
+    min: -50
+    max: 50
+calcs:
+colors:
+  demand: "'#32006e'"
+  fixed: "'#b7a57a'"
+  supply: "'#85754d'"
+layout:
+  type: TwoHorizontalGraphsPlusSidebar
+  def:
+    leftGraph:
+      xAxis:
+        title: Quantity ($Q$)
+        orient: bottom
+        min: 0
+        max: 150
+        ticks: 0
+      yAxis:
+        title: Price ($P$)
+        orient: left
+        min: 0
+        max: 150
+        ticks: 0
+      objects:
+      - EconLinearEquilibrium:
+          demand:
+            xIntercept: 120
+            invSlope: -1
+            lineStyle: dotted
+          supply:
+            yIntercept: 50
+            slope: 1
+            lineStyle: dotted
+          equilibrium:
+            color: fixed
+            droplines:
+              vertical: Q_0
+              horizontal: P_0
+      - EconLinearEquilibrium:
+          demand:
+            xIntercept: 120+params.demandShift
+            invSlope: -1
+            lineStyle: solid
+            drag:
+              - horizontal: demandShift
+          supply:
+            yIntercept: params.tax
+            slope: 1
+            lineStyle: solid
+          equilibrium:
+            color: demand
+            droplines:
+              vertical: Q_1
+              horizontal: P_1
+          show: params.tax>0
+    rightGraph:
+      xAxis:
+        title: Quantity ($Q$)
+        orient: bottom
+        min: 0
+        max: 150
+        ticks: 0
+      yAxis:
+        title: Price ($P$)
+        orient: left
+        min: 0
+        max: 150
+        ticks: 0
+      objects:
+      - EconLinearEquilibrium:
+          demand:
+            xIntercept: 120
+            invSlope: -1
+            lineStyle: dotted
+          supply:
+            yIntercept: 50
+            slope: 1
+            lineStyle: dotted
+          equilibrium:
+            color: fixed
+            droplines:
+              vertical: Q_0
+              horizontal: P_0
+      - EconLinearEquilibrium:
+          demand:
+            xIntercept: 120-params.demandShift
+            invSlope: -1
+            lineStyle: solid
+          supply:
+            yIntercept: 50
+            slope: 1
+            lineStyle: solid
+          equilibrium:
+            color: demand
+            droplines:
+              vertical: Q_1
+              horizontal: P_1
+          show: params.tax>0
+    sidebar:
+      controls:
+        - title: Effect of Land-Use Regulations (Two City Case)
+          sliders:
+            - param: tax
+              label: \text{Tax}
+              showNumber: false
+          divs:
+            - html: Suppose now there are two cities. At the start of the period, both cities have these "taxes" on developers
+            - html: <b>Remove the tax in City 1 by moving the slider to the left.</b>
+            - html: Once land-use regulations are removed, prices will fall. This could induce some people from City 2 to move to City 1. Simulate this by dragging the demand curve in City 1 to the right.
+              show: (params.tax<50)
+            - html: Once land-use regulations are removed, prices will fall. This could induce some people from City 2 to move to City 1. Simulate this by dragging the demand curve in City 1 to the right.
+            - html: If this is the case, prices may not fall by as much as anticipated in City 1 (or may rise), whereas prices may fall in City 2.
+              show: (params.tax<50) && (params.demandShift>0)
+            - html: Note that demand could also increase (or decrease) if the increased density comes with positive (or negative) amenities.
+              show: (params.tax<50) && (params.demandShift!=0)
+</div>
+</div>
+
+</div>
+<div id="inclusionary-zoning" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Inclusionary Zoning</h2>
+<p>(incl developer exactions?)</p>
+
+</div>
 </div>
 <div class="custom-nav"><div class="nav-left"><a class="prev-link" href="local-government-policies.html">← Local Government Policies</a></div><div class="nav-right"></div></div>
 </div></div>
