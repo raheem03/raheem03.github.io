@@ -4,4 +4,5 @@ federal-rental-assistance-i-public-housing-vouchers
 federal-rental-assistance-ii-lihtc
 homeownership
 local-government-policies
+homelessness
 land-use-regulations

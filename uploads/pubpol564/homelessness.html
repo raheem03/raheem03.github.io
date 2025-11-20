@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Housing and Social Policy" />
+<meta property="og:title" content="Chapter 7 Homelessness | Housing and Social Policy" />
 <meta property="og:type" content="book" />
 
 <meta property="og:description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
@@ -19,7 +19,7 @@ taught by Raheem Chaudhry at the University of Washington Evans School.</p>" />
 <meta name="description" content="<p>These are lecture notes associated with PUBPOL 564 (Housing and Social Policy),
 taught by Raheem Chaudhry at the University of Washington Evans School.</p>">
 
-<title>Housing and Social Policy</title>
+<title>Chapter 7 Homelessness | Housing and Social Policy</title>
 
 <link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
@@ -251,35 +251,128 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div></div>
 <div class="row"><div class="col-sm-12">
-<div id="header">
-<h1 class="title">Housing and Social Policy</h1>
-<h4 class="author"><em><a href="https://raheemchaudhry.com/">Raheem Chaudhry</a></em></h4>
-<h4 class="date"><em>Last updated: 2025-11-20</em></h4>
-</div>
-<div id="welcome" class="section level1 unnumbered">
-<h1>Welcome</h1>
-<p>Welcome to PUBPOL 564, Housing and Social Policy. This page hosts lecture notes and some content associated with the course.</p>
-<div id="how-to-use-these-notes" class="section level2 unnumbered">
-<h2>How to Use These Notes</h2>
-<div id="before-class" class="section level3 unnumbered">
-<h3>Before class</h3>
-<p>Each week, you are <strong>required</strong> to complete the <u>lecture</u> preview associated with a lecture <em>before</em> class. In these previews, I will typically:</p>
+<div id="homelessness" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Homelessness</h1>
+<div id="lecture-preview-6" class="section level2 unnumbered">
+<h2>Lecture Preview</h2>
+<div id="learning-objectives-7" class="section level3 unnumbered">
+<h3>Learning Objectives</h3>
+<p>After this week, students will be able to:</p>
 <ul>
-<li>Articulate learning objectives</li>
-<li>Justify assigned readings and provide guiding questions</li>
-<li>Provide some notes or interactive exercises to get you thinking about the topic</li>
+<li>Identify key housing problems related to instability</li>
+<li>Consider what the goals of housing policy should be and critically think about how we should allocate limited resources</li>
+<li>Evaluate the evidence on the causes of homelessness</li>
+<li>Describe the major policy approaches to addressing homelessness and evaluate the empirical evidence on their impacts</li>
+<li>Assess practical implementation challenges associated with different interventions</li>
 </ul>
-<p>You are also <strong>required</strong> to do any <u>assigned reading</u> <em>before</em> class. I will primarily ask you to focus on readings that enrich or complement the lecture and our discussions. Each week in the lecture preview, I will provide some justification for the readings and some guiding questions you may consider as you read.</p>
-<p>Each week, these lecture previews may come with additional discussion questions for you to consider, beyond those presented with each of the readings.</p>
-<p>Many weeks, the lecture preview will also come with come with some interactive questions. These are meant to help motivate the upcoming lecture and to get you thinking about the topic. After you complete these, note whether your guesses were accurate or not. If not, think about why you were wrong, and how the correct information might impact your beliefs.</p>
-<p>Take the discussion questions and the interactive questions seriously. I strongly encourage you to write down your reflections. We may discuss any of this in person, either as a class or in small groups.</p>
 </div>
-<div id="after-class" class="section level3 unnumbered">
-<h3>After class</h3>
-<p>You are <strong>required</strong> to review the lecture notes after class. I also encourage you to review the supplementary reading.</p>
+<div id="readings-7" class="section level3 unnumbered">
+<h3>Readings</h3>
+<ol style="list-style-type: decimal">
+<li><strong>Shinn and Khadduri, Ch 2</strong>
+<ul>
+<li>What are the two dominant classes of explanations for homelessness?</li>
+<li>How do the experiences of homelessness and poverty differ in the US relative to other countries?</li>
+<li>What do Shinn and Khadduri think best explains levels and trends in homelessness in the US? What evidence do they have to support their claim?</li>
+<li>What individual risk factors do they identify as contributing to an increasing probability of experiencing homelessness? How might policy mediate the relationship between individual risk factors and homelessness?</li>
+</ul></li>
+<li><strong>Family Options Study, 3-Year Summary Report</strong>
+<ul>
+<li>What is the Family Options Study? That is, what is the motivation behind the program, the main research questions the study seeks to answer, and the overarching research design?</li>
+<li>What are the main impacts identified from the three-year follow-up?</li>
+<li>What conclusions can you draw from their cost analysis?</li>
+</ul></li>
+<li><strong>NAEH, “State of Homelessness: 2025 Report”</strong>
+<ul>
+<li>What are some key takeaways of the report?</li>
+<li>What do the authors think are driving record homelessness?</li>
+<li>Check out the Continuum of Care dashboards. How has homelessness in King County changed over time? What share of individuals in King County have access to a shelter bed?</li>
+</ul></li>
+</ol>
+
+
+<link rel="stylesheet" href="assets/you-draw-it-master/dist/css/style.css">
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="assets/you-draw-it-master/dist/js/youdrawit.js"></script>
+<!--
+<div class="gate-msg">🔒 This page will unlock on 10/7/2025 at 2:30 PM PT.</div>
+<div class="gated" data-unlock-utc="2025-10-07T21:30:00Z">
+-->
+<div id="chart-area" style="max-width: 55%;">
+<div id="chart-container"></div>
+
+<script>
+  var questions = [];
+  var question = {};
+
+  var globals = { 
+    default: "en",
+    showScore: false,
+    resultButtonTooltip: false,
+    resultButtonText: "Show Me How I Did"
+  };
+
+  question = { 
+    heading: "Plot the number of people experiencing homelessness in King County Over Time",
+    data: [
+      {2007: 7902},
+      {2008: 8501},
+      {2009: 8952},
+      {2010: 9022},
+      {2011: 8972},
+      {2012: 8899},
+      {2013: 9106},
+      {2014: 8949}, 
+      {2015: 10122}, 
+      {2016: 10730}, 
+      {2017: 11643}, 
+      {2018: 12112}, 
+      {2019: 11199},
+      {2020: 11751},
+      {2022: 13368},
+      {2023: 14149},
+      {2024: 16868},
+    ],
+    precision:0,
+    yAxisMin:5000,
+    yAxisMax:18000,
+    lastPointShownAt:2007,
+  };
+  questions.push(question);
+  
+   question = { 
+    heading: "Plot the Homelessness Rate by Race (per 10k residents) in King County in 2024",
+    chartType: "barChart",
+    data: [
+      {"White": 53},
+      {"Black": 277},
+      {"Hispanic": 145},
+      {"Native American": 842},
+      {"Asian": 7},
+    ],
+    defaultValues: 50,
+    precision:0,
+    yAxisMin:0,
+    yAxisMax:1000,
+  };
+  questions.push(question);
+  
+  var myChart = youdrawit
+    .chart()
+    .globals(globals)
+    .questions(questions);
+
+  d3.select("#chart-container")
+    .append("div")
+    .attr("class", "chart")
+    .call(myChart);
+</script>
+</div>
+</div>
+
 
 </div>
 </div>
 </div>
-<div class="custom-nav"><div class="nav-left"></div><div class="nav-right"><a class="next-link" href="preliminaries.html">Preliminaries →</a></div></div>
+<div class="custom-nav"><div class="nav-left"><a class="prev-link" href="local-government-policies.html">← Local Government Policies</a></div><div class="nav-right"><a class="next-link" href="in-class-exercises.html">In-Class Exercises →</a></div></div>
 </div></div>
