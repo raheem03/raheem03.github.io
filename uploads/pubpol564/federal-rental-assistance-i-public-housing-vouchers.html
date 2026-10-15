@@ -234,8 +234,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<div class="row">
-<div class="col-sm-12">
+<div class="row"><div class="col-sm-12">
 <div id="TOC">
 <ul>
 <li><a href="index.html#welcome" id="toc-welcome">Welcome</a></li>
@@ -250,10 +249,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="in-class-exercises.html#in-class-exercises" id="toc-in-class-exercises">In-Class Exercises</a></li>
 </ul>
 </div>
-</div>
-</div>
-<div class="row">
-<div class="col-sm-12">
+</div></div>
+<div class="row"><div class="col-sm-12">
 <div id="federal-rental-assistance-i-public-housing-vouchers" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Federal Rental Assistance I (Public Housing; Vouchers)</h1>
 <div id="lecture-preview-2" class="section level2 unnumbered">
@@ -327,10 +324,10 @@ params:
   - name: budget
     value: 1000
   - name: alpha
-    value: 0.3334
+    value: .3
   - name: ph
-    value: 333
-    min: 333
+    value: 300
+    min: 300
     max: 1500
     round: 1
 calcs:
@@ -374,7 +371,7 @@ layout:
             label: {text:}
             lineStyle: solid
             show:
-              (params.ph<334)
+              (params.ph<301)
         - EconBudgetLine:
             p1: 1
             p2: 1
@@ -383,7 +380,7 @@ layout:
             label: {text:}
             lineStyle: solid
             show:
-              (params.ph>333)
+              (params.ph>300)
         - Point:
             coordinates:
               - calcs.x_tan
@@ -395,7 +392,7 @@ layout:
               text: \text{Optimal Bundle Under Cash Transfer}
             color: ic
             show:
-              (params.ph>333)
+              (params.ph>300)
         - EconBundle:
             color: ic
             utilityFunction:
@@ -413,7 +410,7 @@ layout:
               horizontal: "`${calcs.y0.toFixed(0)}`"
               vertical: "`${calcs.x0.toFixed(0)}`"
             show:
-              (params.ph>333)
+              (params.ph>300)
         - EconBundle:
             color: ic
             utilityFunction:
@@ -448,7 +445,7 @@ layout:
               vertical: "`${params.ph.toFixed(0)}`"
               horizontal: 700
             show:
-              (params.ph>333)
+              (params.ph>300)
     sidebar:
       controls:
         - title: Public Housing vs Cash Transfer
@@ -457,12 +454,12 @@ layout:
               label: \text{Value of PH Unit}
           divs:
             - html: Suppose household earns 1,000 per month.
-            - html: Without a subsidy, they're going to try to rent a unit for 333/month and spend the rest of their income on other things. What if they're offered public housing?
+            - html: Without a subsidy, they're going to try to rent a unit for 300/month and spend the rest of their income on other things. What if they're offered public housing?
             - html: <b>Manipulate the value of a unit of public housing.</b>
             - html: "`The government charges 30% of income for rent, or 300 for this household, leaving them with 700 for everything else. The subsidy value is the value of the PH unit minus the rent paid by the household, or ${(params.ph - 300).toFixed(0)}`"
-              show: (params.ph>333)
+              show: (params.ph>300)
             - html: "`But note that they would be equally happy with ${calcs.x_tan.toFixed(0)} worth of housing and ${calcs.y_tan.toFixed(0)} of everything else, which could be achieved with a cash transfer of ${calcs.newbudget.toFixed(0)-params.budget.toFixed(0)}`"
-              show: (params.ph>333)
+              show: (params.ph>300)
 </div>
 </div>
 
@@ -565,14 +562,5 @@ layout:
 </div>
 </div>
 </div>
-<p style="text-align: center;">
-<a href="history-private-market.html"><button class="btn btn-default">Previous</button></a>
-<a href="federal-rental-assistance-ii-lihtc.html"><button class="btn btn-default">Next</button></a>
-</p>
-</div>
-</div>
-
-
-
-</body>
-</html>
+<div class="custom-nav"><div class="nav-left"><a class="prev-link" href="history-private-market.html">← History; Private Market</a></div><div class="nav-right"><a class="next-link" href="federal-rental-assistance-ii-lihtc.html">Federal Rental Assistance II (LIHTC) →</a></div></div>
+</div></div>
